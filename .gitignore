@@ -1,0 +1,53 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Build directories
+build/
+build-*/
+out/
+
+# CMake
+CMakeCache.txt
+
+# Install output of compile.sh (default prefix: <repo>/toolkit_<version>)
+/toolkit*/
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+Testing/
+
+# IDE
+.idea/
+.vscode/
+*.user
+CMakeLists.txt.user*
