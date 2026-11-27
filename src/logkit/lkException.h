@@ -1,6 +1,8 @@
 #ifndef HDR_lkException
 #define HDR_lkException
 
+#include <exception>
+
 #include "lkVariant.h"
 
 namespace toolkit {
@@ -15,7 +17,7 @@ namespace logkit {
  *  constructor methods.
  */
 
-class Exception 
+class Exception : public std::exception 
 {
 public:
   Exception (const std::string &msg)
@@ -100,6 +102,8 @@ public:
   virtual ~Exception () { }
 
   virtual std::string msg () const { return m_msg; }
+
+  const char *what () const noexcept override { return m_msg.c_str (); }
 
 private:
   std::string m_msg;

@@ -1,8 +1,6 @@
 #ifndef HDR_lkExpression
 #define HDR_lkExpression
 
-#include "lkCommon.h"
-
 #include "lkException.h"
 #include "lkVariant.h"
 #include "lkString.h"

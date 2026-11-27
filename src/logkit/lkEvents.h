@@ -1,7 +1,6 @@
 #ifndef _HDR_lkEvents
 #define _HDR_lkEvents
 
-#include "lkObject.h"
 #include "lkException.h"
 
 #include <vector>
@@ -11,12 +10,7 @@ namespace toolkit {
 namespace logkit {
 
 /**
- *  @brief A helper function to handle event exceptions of Exception type
- */
-void handle_event_exception (Exception &ex);
-
-/**
- *  @brief A helper function to handle event exceptions of std::exception type
+ *  @brief A helper function to handle event exceptions
  */
 void handle_event_exception (std::exception &ex);
 
