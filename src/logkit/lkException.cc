@@ -1,4 +1,5 @@
 #include "lkException.h"
+
 #include "lkString.h"
 
 namespace toolkit {

@@ -204,11 +204,6 @@ static std::vector<std::string> split_filename (const std::string &fn)
   return parts;
 }
 
-std::string normalize_path (const std::string &s)
-{
-  return join (split_path (s), "");
-}
-
 std::string combine_path (const std::string &p1, const std::string &p2, bool always_join)
 {
   if (! always_join && p2.empty ()) {
@@ -263,94 +258,9 @@ std::string extension (const std::string &s)
   return join (fnp, ".");
 }
 
-std::string extension_last (const std::string &s)
-{
-  std::vector<std::string> fnp = split_filename (filename (s));
-  if (fnp.size () > 1) {
-    return fnp.back ();
-  } else {
-    return std::string ();
-  }
-}
-
-bool
-is_parent_path (const std::string &parent, const std::string &path)
-{
-  if (! file_exists (parent)) {
-    //  If the parent path does not exist, we always return false. This cannot be a parent.
-    return false;
-  }
-
-  std::vector<std::string> parts = split_path (absolute_file_path (path));
-
-  while (! parts.empty () && ! (parts.size () == 1 && is_drive (parts[0]))) {
-    if (is_same_file (parent, join (parts, ""))) {
-      return true;
-    } else {
-      parts.pop_back ();
-    }
-  }
-
-  //  We did not find a match - now maybe the parent is root
-  return (is_same_file (parent, combine_path (join (parts, ""), "", true /*always add slash*/)));
-}
-
-std::vector<std::string> dir_entries (const std::string &s, bool with_files, bool with_dirs, bool without_dotfiles)
-{
-  std::vector<std::string> ee;
-
-  DIR *h = opendir (to_local (s).c_str ());
-  if (h) {
-
-    struct dirent *d;
-    while ((d = readdir (h)) != NULL) {
-
-      std::string e = to_string_from_local (d->d_name);
-      if (e.empty () || e == "." || e == "..") {
-        continue;
-      }
-
-      bool is_dir = (d->d_type == DT_DIR);
-      if ((e[0] != '.' || !without_dotfiles) && ((is_dir && with_dirs) || (!is_dir && with_files))) {
-        ee.push_back (e);
-      }
-
-    }
-
-    closedir (h);
-
-  }
-
-  return ee;
-}
-
 bool mkdir (const std::string &path)
 {
   return ::mkdir (to_local (path).c_str (), 0777) == 0;
-}
-
-bool mkpath (const std::string &p)
-{
-  std::vector<std::string> parts = split_path (absolute_file_path (p));
-
-  size_t i = 0;
-  std::string front;
-  if (! parts.empty () && is_drive (parts.front ())) {
-    front = parts.front ();
-    ++i;
-  }
-
-  while (i < parts.size ()) {
-    front += parts[i++];
-    if (! file_exists (front)) {
-      if (! mkdir (front)) {
-        error << std::string ("Unable to create directory: ") << front;
-        return false;
-      }
-    }
-  }
-
-  return true;
 }
 
 bool rename_file (const std::string &path, const std::string &new_name)
@@ -367,89 +277,6 @@ bool rename_file (const std::string &path, const std::string &new_name)
 bool rm_file (const std::string &path)
 {
   return unlink (to_local (path).c_str ()) == 0;
-}
-
-bool rm_dir (const std::string &path)
-{
-  return rmdir (to_local (path).c_str ()) == 0;
-}
-
-bool rm_dir_recursive (const std::string &p)
-{
-  std::vector<std::string> entries;
-  std::string path = absolute_file_path (p);
-
-  if (! file_exists (path)) {
-    //  already gone.
-    return true;
-  }
-
-  entries = dir_entries (path, false /*without_files*/, true /*with_dirs*/);
-  for (std::vector<std::string>::const_iterator e = entries.begin (); e != entries.end (); ++e) {
-    if (! rm_dir_recursive (combine_path (path, *e))) {
-      return false;
-    }
-  }
-
-  entries = dir_entries (path, true /*with_files*/, false /*without_dirs*/);
-  for (std::vector<std::string>::const_iterator e = entries.begin (); e != entries.end (); ++e) {
-    std::string tc = combine_path (path, *e);
-    if (! rm_file (tc)) {
-      error << std::string ("Unable to remove file: ") << tc;
-      return false;
-    }
-  }
-
-  if (! rm_dir (path)) {
-    error << std::string ("Unable to remove directory: ") << path;
-    return false;
-  }
-
-  return true;
-}
-
-bool
-cp_dir_recursive (const std::string &source, const std::string &target)
-{
-  std::vector<std::string> entries;
-  std::string path = absolute_file_path (source);
-  std::string path_to = absolute_file_path (target);
-
-  entries = dir_entries (path, false /*without_files*/, true /*with_dirs*/);
-  for (std::vector<std::string>::const_iterator e = entries.begin (); e != entries.end (); ++e) {
-    std::string tc = combine_path (path_to, *e);
-    if (! mkpath (tc)) {
-      error << std::string ("Unable to create target directory: ") << tc;
-      return false;
-    }
-    if (! cp_dir_recursive (combine_path (path, *e), tc)) {
-      return false;
-    }
-  }
-
-  entries = dir_entries (path, true /*with_files*/, false /*without_dirs*/);
-  for (std::vector<std::string>::const_iterator e = entries.begin (); e != entries.end (); ++e) {
-
-    //  TODO: leave symlinks symlinks? How to copy symlinks with Qt?
-
-    //  copy the files
-    try {
-
-      OutputFile os_file (combine_path (path_to, *e));
-      OutputStream os (os_file);
-      InputFile is_file (combine_path (path, *e));
-      InputStream is (is_file);
-      is.copy_to (os);
-
-    } catch (Exception &ex) {
-      error << std::string ("Unable to copy file ") << combine_path (path_to, *e) << std::string (" to ") << combine_path (path, *e)
-                << std::string ("(Error ") << ex.msg () << ")";
-      return false;
-    }
-
-  }
-
-  return true;
 }
 
 std::string absolute_path (const std::string &s)
@@ -473,7 +300,6 @@ std::string current_dir ()
     return cwds;
   }
 }
-
 
 static std::pair<std::string, bool> absolute_path_of_existing (const std::string &s)
 {
@@ -570,18 +396,6 @@ bool file_exists (const std::string &p)
   return stat_func (p, st) == 0;
 }
 
-bool is_writable (const std::string &p)
-{
-  stat_struct st;
-  return stat_func (p, st) == 0 && (st.st_mode & S_IWUSR) != 0;
-}
-
-bool is_readable (const std::string &p)
-{
-  stat_struct st;
-  return stat_func (p, st) == 0 && (st.st_mode & S_IRUSR) != 0;
-}
-
 bool is_dir (const std::string &p)
 {
   stat_struct st;
@@ -589,79 +403,6 @@ bool is_dir (const std::string &p)
     return false;
   } else {
     return !S_ISREG (st.st_mode);
-  }
-}
-
-std::string relative_path (const std::string &base, const std::string &p)
-{
-  std::vector<std::string> rem;
-  std::vector<std::string> parts = split_path (p);
-
-  while (! parts.empty ()) {
-
-    if (is_same_file (base, join (parts, ""))) {
-
-      //  combine the remaining path
-      std::reverse (rem.begin (), rem.end ());
-      if (! rem.empty ()) {
-        rem[0] = trimmed_part (rem.front ());
-      }
-      return join (rem, "");
-
-    }
-
-    rem.push_back (parts.back ());
-    parts.pop_back ();
-
-  }
-
-  return p;
-}
-
-bool is_same_file (const std::string &a, const std::string &b)
-{
-  if (normalize_path (a) == normalize_path (b)) {
-    return true;
-  }
-
-  stat_struct sta, stb;
-  if (stat_func (a, sta) != 0 || stat_func (b, stb) != 0) {
-    return false;
-  }
-
-  return sta.st_dev == stb.st_dev && sta.st_ino == stb.st_ino;
-}
-
-static std::string
-get_inst_path_internal ()
-{
-  std::string pf = sprintf ("/proc/%d/exe", getpid ());
-  if (file_exists (pf)) {
-    return absolute_path (pf);
-  }
-
-  lk_assert (false);
-}
-
-std::string
-get_inst_path ()
-{
-  static std::string s_inst_path;
-  if (s_inst_path.empty ()) {
-    s_inst_path = get_inst_path_internal ();
-  }
-  return s_inst_path;
-}
-
-std::string
-get_module_path (void *addr)
-{
-  Dl_info info = { };
-  if (dladdr (addr, &info)) {
-    return absolute_file_path (to_string_from_local (info.dli_fname));
-  } else {
-    warn << to_string (std::string ("Unable to get path of db library (as basis for loading db_plugins)"));
-    return std::string ();
   }
 }
 

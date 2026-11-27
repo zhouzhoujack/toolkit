@@ -7,32 +7,9 @@ namespace toolkit {
 namespace logkit {
 
 /**
- *  @brief Returns a value indicating whether the parent path is a parent directory of the path (version with std::string)
- */
-bool is_parent_path (const std::string &parent, const std::string &path);
-
-/**
  *  @brief Returns true if s is an absolute path
  */
 bool is_absolute (const std::string &s);
-
-/**
- *  @brief Recursively remove the given directory, the files from that directory and all sub-directories (version with std::string)
- *  @return True, if successful. false otherwise.
- */
-bool rm_dir_recursive (const std::string &path);
-
-/**
- *  @brief Creates the given path as far it does not exist yet
- *  @return True, if successful. false otherwise.
- */
-bool mkpath (const std::string &path);
-
-/**
- *  @brief Recursively remove the given directory, the files from that directory and all sub-directories (version with std::string)
- *  @return True, if successful. false otherwise.
- */
-bool cp_dir_recursive (const std::string &source, const std::string &target);
 
 /**
  *  @brief Gets the absolute path for a given file path
@@ -68,39 +45,15 @@ std::string basename (const std::string &s);
 std::string extension (const std::string &s);
 
 /**
- *  @brief Gets the last extension for a given file path
- */
-std::string extension_last (const std::string &s);
-
-/**
  *  @brief Returns true, if the given path exists
  *  If the path is a directory, file_exists will return true, if the directory exists.
  */
 bool file_exists (const std::string &s);
 
 /**
- *  @brief Returns true, if the given path is writable
- */
-bool is_writable (const std::string &s);
-
-/**
- *  @brief Returns true, if the given path is readable
- */
-bool is_readable (const std::string &s);
-
-/**
  *  @brief Returns true, if the given path is a directory
  */
 bool is_dir (const std::string &s);
-
-/**
- *  @brief Gets the directory entries for the given directory
- *  This method will NEVER return the ".." entry.
- *  @param with_files Includes all files
- *  @param with_dirs Include all directories
- *  @param without_dotfiles Exclude all ".*" files
- */
-std::vector<std::string> dir_entries (const std::string &s, bool with_files = true, bool with_dirs = true, bool without_dotfiles = false);
 
 /**
  *  @brief Rename the given file
@@ -111,29 +64,6 @@ bool rename_file (const std::string &path, const std::string &new_name);
  *  @brief Removes the given file and returns true on success
  */
 bool rm_file (const std::string &path);
-
-/**
- *  @brief Removes the given directory and returns true on success
- */
-bool rm_dir (const std::string &path);
-
-/**
- *  @brief Returns true, if the given path is the same directory of file than the other one
- */
-bool is_same_file (const std::string &a, const std::string &b);
-
-/**
- *  @brief Gets the relative path of p vs. base
- *  If p cannot be resolved relative to base, p is returned.
- */
-std::string relative_path (const std::string &base, const std::string &p);
-
-/**
- *  @brief Normalizes the path
- *  This function will remove duplicate "/" or "\" and strip any trailing
- *  "/" or "\".
- */
-std::string normalize_path (const std::string &s);
 
 /**
  *  @brief Combines the two path components into one path
@@ -159,17 +89,6 @@ std::string current_dir ();
  *  With this, a path like "/hello/" becomes "/hello"+"/".
  */
 std::vector<std::string> split_path (const std::string &p, bool keep_last = false);
-
-/**
- *  @brief Gets the path of the currently running process
- */
-std::string get_inst_path ();
-
-/**
- *  @brief Gets the absolute path of the module (DLL/.so) which contains the given address
- *  "address" is supposed to be the address of a function inside the module.
- */
-std::string get_module_path (void *addr);
 
 /**
  *  @brief Gets the line separator (CRLF on windows, LF on linux)
