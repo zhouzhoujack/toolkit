@@ -129,7 +129,6 @@ set(_logkit_installed_header_names
     lkEvents.h
     lkEventsVar.h
     lkException.h
-    lkInternational.h
     lkLog.h
     lkObject.h
     lkObjectCollection.h

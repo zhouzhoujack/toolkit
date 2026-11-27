@@ -1,7 +1,6 @@
 #include "lkFileUtils.h"
 #include "lkStream.h"
 #include "lkLog.h"
-#include "lkInternational.h"
 
 #include <cctype>
 

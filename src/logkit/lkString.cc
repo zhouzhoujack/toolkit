@@ -11,7 +11,6 @@
 
 #include "lkString.h"
 #include "lkExpression.h"
-#include "lkInternational.h"
 
 namespace toolkit {
 namespace logkit {
@@ -231,6 +230,16 @@ std::string to_local (const std::string &s)
   }
 
   return ls;
+}
+
+std::string system_to_string (const std::string &s)
+{
+  return to_string_from_local (s.c_str ());
+}
+
+std::string string_to_system (const std::string &s)
+{
+  return to_local (s);
 }
 
 std::string to_string_from_local (const char *cp)

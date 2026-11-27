@@ -241,6 +241,10 @@ std::string to_string (const char *cp, int length);
 std::string to_string_from_local (const char *cp);
 std::string to_local (const std::string &s);
 
+//  system encoding <-> UTF-8 conversion (moved here from lkInternational)
+std::string system_to_string (const std::string &s);
+std::string string_to_system (const std::string &s);
+
 template <class T> inline std::string to_string (const T &o) { return o.to_string (); }
 template <> inline std::string to_string (const double &d) { return to_string (d, 12); }
 template <> inline std::string to_string (const float &d) { return to_string (d, 6); }
