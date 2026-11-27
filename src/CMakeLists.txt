@@ -117,8 +117,6 @@ install(EXPORT toolkitTargets
 # ---------------------------------------------------------------------------
 set(_logkit_installed_header_names
     lkCommon.h
-    lkEvents.h
-    lkEventsVar.h
     lkException.h
     lkHelper.h
     lkLog.h
