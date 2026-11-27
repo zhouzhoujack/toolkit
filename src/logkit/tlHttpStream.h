@@ -36,7 +36,7 @@ namespace toolkit { namespace logkit
 /**
  *  @brief A callback interface to provide the authentication data
  */
-class TL_PUBLIC HttpCredentialProvider
+class HttpCredentialProvider
   : public Object
 {
 public:
@@ -52,7 +52,7 @@ public:
 /**
  *  @brief An exception class for HTTP errors
  */
-class TL_PUBLIC HttpErrorException
+class HttpErrorException
   : public Exception
 {
 public:
@@ -70,7 +70,7 @@ class InputHttpStreamPrivateData;
  *
  *  Implements the reader from a server using the HTTP protocol
  */
-class TL_PUBLIC InputHttpStream
+class InputHttpStream
   : public InputStreamBase
 {
 public:

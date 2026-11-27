@@ -47,7 +47,7 @@ class OutputStream;
 /**
  *  @brief An utility method to match a file name against a given format
  */
-extern TL_PUBLIC bool match_filename_to_format (const std::string &fn, const std::string &fmt);
+extern bool match_filename_to_format (const std::string &fn, const std::string &fmt);
 
 // ---------------------------------------------------------------------------------
 
@@ -58,7 +58,7 @@ extern TL_PUBLIC bool match_filename_to_format (const std::string &fn, const std
  *  The actual implementation is provided through InputFile, InputPipe and InputZLibFile.
  */
 
-class TL_PUBLIC InputStreamBase
+class InputStreamBase
 {
 public:
   InputStreamBase () { }
@@ -113,7 +113,7 @@ class ZLibFilePrivate;
 /**
  *  @brief An in-memory input file delegate
  */
-class TL_PUBLIC InputMemoryStream
+class InputMemoryStream
   : public InputStreamBase
 {
 public:
@@ -178,7 +178,7 @@ private:
  *
  *  Implements the reader for a zlib stream
  */
-class TL_PUBLIC InputZLibFile
+class InputZLibFile
   : public InputStreamBase
 {
 public:
@@ -235,7 +235,7 @@ private:
  *
  *  Implements the reader for ordinary files.
  */
-class TL_PUBLIC InputFile
+class InputFile
   : public InputStreamBase
 {
 public:
@@ -287,7 +287,7 @@ private:
  *
  *  Implements the reader for pipe streams
  */
-class TL_PUBLIC InputPipe
+class InputPipe
   : public InputStreamBase
 {
 public:
@@ -378,7 +378,7 @@ private:
  *  The actual stream access is delegated to another object.
  */
 
-class TL_PUBLIC InputStream
+class InputStream
 {
 public:
   /**
@@ -570,7 +570,7 @@ private:
  *
  *  This class is put in front of a InputStream to format the input as text input stream.
  */
-class TL_PUBLIC TextInputStream 
+class TextInputStream 
 {
 public:
   /**
@@ -671,7 +671,7 @@ private:
  *  The actual implementation is provided through OutputFile, OutputPipe and OutputZLibFile.
  */
 
-class TL_PUBLIC OutputStreamBase
+class OutputStreamBase
 {
 public:
   OutputStreamBase () { }
@@ -724,7 +724,7 @@ private:
  *
  *  Implements the writer to a memory buffer
  */
-class TL_PUBLIC OutputMemoryStream
+class OutputMemoryStream
   : public OutputStreamBase
 {
 public:
@@ -783,7 +783,7 @@ private:
  *
  *  Implements the writer to a string
  */
-class TL_PUBLIC OutputStringStream
+class OutputStringStream
   : public OutputStreamBase
 {
 public:
@@ -862,7 +862,7 @@ private:
  *  zero, an infinite number of backups is made. But beware: shuffling
  *  will become increasingly expensive.
  */
-class TL_PUBLIC OutputFileBase
+class OutputFileBase
   : public OutputStreamBase
 {
 public:
@@ -914,7 +914,7 @@ private:
  *
  *  Implements the writer for a zlib stream
  */
-class TL_PUBLIC OutputZLibFile
+class OutputZLibFile
   : public OutputFileBase
 {
 public:
@@ -965,7 +965,7 @@ private:
  *
  *  Implements the writer for ordinary files.
  */
-class TL_PUBLIC OutputFile
+class OutputFile
   : public OutputFileBase
 {
 public:
@@ -1026,7 +1026,7 @@ private:
  *
  *  Implements the writer for pipe streams
  */
-class TL_PUBLIC OutputPipe
+class OutputPipe
   : public OutputStreamBase
 {
 public:
@@ -1077,7 +1077,7 @@ private:
  *  The actual stream access is delegated to another object.
  */
 
-class TL_PUBLIC OutputStream
+class OutputStream
 {
 public:
   /**

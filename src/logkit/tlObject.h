@@ -52,7 +52,7 @@ class WeakOrSharedPtr;
  *      own the objects contained in the collection and upon deletion,
  *      pointers inside the weak collection are removed from the collection.
  */
-class TL_PUBLIC Object
+class TL_EXPORT Object
 {
 public:
   /**
@@ -118,7 +118,7 @@ private:
  *  @brief The base class for weak and shared pointers
  *  This class is used for implementation of the weak and shared pointers.
  */
-class TL_PUBLIC WeakOrSharedPtr
+class WeakOrSharedPtr
 {
 public:
   /**
@@ -221,7 +221,7 @@ private:
  *  This class represents a weak or shared pointer for the given type T.
  */
 template <class T, bool Shared>
-class TL_PUBLIC_TEMPLATE weak_or_shared_ptr
+class weak_or_shared_ptr
   : public WeakOrSharedPtr
 {
 public:
@@ -357,7 +357,7 @@ public:
  *  See description of Object for details.
  */
 template <class T>
-class TL_PUBLIC_TEMPLATE weak_ptr
+class weak_ptr
   : public weak_or_shared_ptr<T, false>
 {
 public:
@@ -385,7 +385,7 @@ public:
  *  See description of Object for details.
  */
 template <class T>
-class TL_PUBLIC_TEMPLATE shared_ptr
+class shared_ptr
   : public weak_or_shared_ptr<T, true>
 {
 public:

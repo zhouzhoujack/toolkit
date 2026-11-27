@@ -39,7 +39,7 @@ namespace toolkit { namespace logkit
  *  @brief clock_gettime is not implemented in Mac OS X 10.11 and lower
  *  From: https://gist.githubusercontent.com/jbenet/1087739/raw/638b37f76cdd9dc46d617443cab27eac297e2ee3/current_utc_time.c
  */
-TL_PUBLIC void current_utc_time (struct timespec *ts);
+void current_utc_time (struct timespec *ts);
 
 /**
  *  @brief A basic timer class
@@ -48,7 +48,7 @@ TL_PUBLIC void current_utc_time (struct timespec *ts);
  *  report the time through several methods
  */
 
-class TL_PUBLIC Timer
+class Timer
 {
 public:
   typedef int64_t timer_t;
@@ -112,7 +112,7 @@ private:
  *  reports the object's lifetime upon destruction
  */
 
-class TL_PUBLIC SelfTimer
+class SelfTimer
   : public Timer 
 {
 public:
@@ -172,7 +172,7 @@ private:
  *  }
  *  @/code
  */
-class TL_PUBLIC Clock 
+class Clock 
 {
 public:
   typedef int64_t timer_t;

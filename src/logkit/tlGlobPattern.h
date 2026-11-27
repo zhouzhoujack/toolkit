@@ -38,7 +38,7 @@ class GlobPatternOp;
  *  @brief A class representing a glob pattern 
  */
 
-class TL_PUBLIC GlobPattern
+class GlobPattern
 {
 public:
   /**

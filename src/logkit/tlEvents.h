@@ -13,12 +13,12 @@ namespace toolkit { namespace logkit
 /**
  *  @brief A helper function to handle event exceptions of Exception type
  */
-TL_PUBLIC void handle_event_exception (Exception &ex);
+void handle_event_exception (Exception &ex);
 
 /**
  *  @brief A helper function to handle event exceptions of std::exception type
  */
-TL_PUBLIC void handle_event_exception (std::exception &ex);
+void handle_event_exception (std::exception &ex);
 
 /**
  *  @brief A framework of observer and observables
@@ -91,12 +91,12 @@ TL_PUBLIC void handle_event_exception (std::exception &ex);
  *  @endcode
  */
 
-template <class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class TL_PUBLIC_TEMPLATE event_function_base;
-template <class T, class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class TL_PUBLIC_TEMPLATE event_function;
-template <class T, class D, class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class TL_PUBLIC_TEMPLATE event_function_with_data;
-template <class T, class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class TL_PUBLIC_TEMPLATE generic_event_function;
-template <class T, class D, class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class TL_PUBLIC_TEMPLATE generic_event_function_with_data;
-template <class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class TL_PUBLIC_TEMPLATE event;
+template <class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class event_function_base;
+template <class T, class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class event_function;
+template <class T, class D, class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class event_function_with_data;
+template <class T, class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class generic_event_function;
+template <class T, class D, class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class generic_event_function_with_data;
+template <class A1 = void, class A2 = void, class A3 = void, class A4 = void, class A5 = void> class event;
 typedef event<> Event;
 
 #define  _COUNT 0

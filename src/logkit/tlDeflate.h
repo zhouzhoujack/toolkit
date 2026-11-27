@@ -44,7 +44,7 @@ class HuffmannDecoder;
  *  these bytes. The bits are delivered in the order specified by the DEFLATE
  *  format specification (least significant bit first).
  */
-class TL_PUBLIC BitStream
+class BitStream
 {
 public:
   /**
@@ -133,7 +133,7 @@ private:
  *  output stream. Similar to InflateFilter it is put between the source
  *  and an output stream.
  */
-class TL_PUBLIC DeflateFilter
+class DeflateFilter
 {
 public:
   /**
@@ -192,7 +192,7 @@ private:
  *  This class is the main DEFLATE decoder. It is called "filter", since it takes bytes from
  *  the input (from the "input" stream) and delivers bytes on the output ("get" method). 
  */
-class TL_PUBLIC InflateFilter
+class InflateFilter
 {
 public:
   /**

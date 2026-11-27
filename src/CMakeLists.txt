@@ -22,15 +22,31 @@ include(CMakePackageConfigHelpers)
 file(GLOB logkit_sources CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/logkit/*.cc")
 
-add_library(logkit SHARED ${logkit_sources})
+# Compile the sources once into an OBJECT library so both the shared library and
+# the unit tests reuse the same objects. The tests exercise the internal API, so
+# they link these objects (hidden symbols stay usable within the test exe) instead
+# of the shared lib, which only exports the TL_EXPORT public API.
+add_library(logkit_objects OBJECT ${logkit_sources})
 
 # atomic/spinlock.h includes "atomic.h" (same directory), so that directory
 # must be on the include path.
-target_include_directories(logkit PRIVATE
+target_include_directories(logkit_objects PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/logkit
     ${CMAKE_CURRENT_SOURCE_DIR}/logkit/atomic)
 
 # tlDeflate streams through zlib.
+target_link_libraries(logkit_objects PRIVATE ZLIB::ZLIB)
+
+# Only symbols marked TL_EXPORT (see tlCommon.h) are exported; everything else
+# -- including inline functions and vtables of internal classes -- is hidden.
+# Objects also carry hidden visibility; that is fine for the tests, since hidden
+# symbols are still usable within the same link unit.
+set_target_properties(logkit_objects PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+    CXX_VISIBILITY_PRESET hidden
+    VISIBILITY_INLINES_HIDDEN ON)
+
+add_library(logkit SHARED $<TARGET_OBJECTS:logkit_objects>)
 target_link_libraries(logkit PRIVATE ZLIB::ZLIB)
 
 # A kit is exposed as toolkit::<kit>.  Only one kit exists today (logkit) and it
@@ -38,10 +54,7 @@ target_link_libraries(logkit PRIVATE ZLIB::ZLIB)
 # toolkit::<name> without renaming anything for consumers.
 add_library(toolkit::logkit ALIAS logkit)
 
-# Default symbol visibility: the whole logkit API is meant to be exported and is
-# declared in plain headers, so no visibility preset / export-macro machinery is
-# used -- same approach as the zlib tree in this toolchain.
-# No VERSION/SOVERSION either: the artifact stays a plain liblogkit.so.
+# No VERSION/SOVERSION: the artifact stays a plain liblogkit.so.
 
 target_include_directories(logkit PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/logkit>
@@ -74,26 +87,45 @@ install(EXPORT toolkitTargets
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/toolkit")
 
 # ---------------------------------------------------------------------------
-# Headers: tlGLog.h is the public header, everything else goes to detail/
+# Headers
 #
-# tlGLog.h is installed to include/toolkit/ as the public header. Its own
-# #include "tlLog.h" points at a header that now lives under detail/, so the
-# quoted includes are rewritten to "detail/xxx.h" for the installed copy.
+# tlGLog.h is the single public header (installed to include/toolkit/). Its own
+# #include "tlLog.h" is rewritten to "detail/tlLog.h" for the installed copy.
 #
-# All other headers (tlLog.h and its dependencies) are installed under
-# include/toolkit/detail/, where they stay siblings and their plain
-# #include "tlXxx.h" lines keep working verbatim (no rewriting needed).
-# atomic/ stays a subdirectory because tlThreads.h says
-# #include "atomic/spinlock.h".
+# Only the headers reachable from the public header (tlGLog.h -> tlLog.h -> ...)
+# are installed, under include/toolkit/detail/. Headers that are used by the
+# implementation only (tlExpression.h, tlStream.h, tlGlobPattern.h, tlFileUtils.h,
+# tlDeflate.h, tlEnv.h, tlTimer.h, tlUri.h, tlHttpStream.h, tlUtils.h,
+# utf_casefolding.h) are NOT installed at all: their symbols are hidden anyway,
+# so a consumer could not use them, and leaving them out makes a direct
+# #include fail outright instead of failing later at link time.
 #
-# Consumers write #include <toolkit/tlGLog.h>.
+# KEEP THIS LIST IN SYNC: if a public header starts including a new tl*.h, add
+# it here or consumers will fail to compile. It is the include-closure of
+# tlGLog.h over the "tlXxx.h" quoted includes.
 # ---------------------------------------------------------------------------
-file(GLOB logkit_headers CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/logkit/*.h")
+set(_logkit_installed_header_names
+    tlAssert.h
+    tlCommon.h
+    tlEvents.h
+    tlEventsVar.h
+    tlException.h
+    tlInternational.h
+    tlLog.h
+    tlObject.h
+    tlObjectCollection.h
+    tlString.h
+    tlThreads.h
+    tlVariant.h)
 
-set(logkit_detail_headers ${logkit_headers})
-list(REMOVE_ITEM logkit_detail_headers
-    "${CMAKE_CURRENT_SOURCE_DIR}/logkit/tlGLog.h")
+set(logkit_detail_headers)
+foreach(_hdr IN LISTS _logkit_installed_header_names)
+    set(_hdr_path "${CMAKE_CURRENT_SOURCE_DIR}/logkit/${_hdr}")
+    if(NOT EXISTS "${_hdr_path}")
+        message(FATAL_ERROR "logkit: installed header not found: ${_hdr_path}")
+    endif()
+    list(APPEND logkit_detail_headers "${_hdr_path}")
+endforeach()
 
 install(FILES ${logkit_detail_headers}
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/toolkit/detail")

@@ -15,7 +15,7 @@ namespace toolkit { namespace logkit
  *  @brief A mutex implementation
  */
 
-class TL_PUBLIC Mutex
+class Mutex
 {
 public:
   Mutex () : m_spinlock () { }
@@ -31,7 +31,7 @@ private:
 
 class WaitConditionPrivate;
 
-class TL_PUBLIC WaitCondition
+class WaitCondition
 {
 public:
   WaitCondition ();
@@ -47,7 +47,7 @@ private:
 /**
  *  @brief A RAII-based Mutex locker
  */
-class TL_PUBLIC MutexLocker
+class MutexLocker
 {
 public:
   MutexLocker (Mutex *mutex)
@@ -71,7 +71,7 @@ private:
 
 class ThreadPrivateData;
 
-class TL_PUBLIC Thread
+class Thread
 {
 public:
   Thread ();
@@ -98,7 +98,7 @@ private:
  *  @brief A thread local storage implementation
  */
 
-class TL_PUBLIC ThreadStorageHolderBase
+class ThreadStorageHolderBase
 {
 public:
   ThreadStorageHolderBase (void *obj) : mp_obj (obj) { }
@@ -119,7 +119,7 @@ public:
   T *data () { return (T *) obj (); }
 };
 
-class TL_PUBLIC ThreadStorageBase
+class ThreadStorageBase
 {
 public:
   ThreadStorageBase ();

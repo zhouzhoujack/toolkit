@@ -13,7 +13,7 @@ foreach(test_src IN LISTS logkit_test_sources)
     get_filename_component(test_name "${test_src}" NAME_WE)
 
     add_executable("${test_name}" "${test_src}")
-    target_link_libraries("${test_name}" PRIVATE logkit GTest::gtest_main)
+    target_link_libraries("${test_name}" PRIVATE logkit_objects GTest::gtest_main ZLIB::ZLIB)
 
     # logkit's own include directories are PRIVATE, so the tests add them
     # explicitly (sources include "tlString.h" etc.).
