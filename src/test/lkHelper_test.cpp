@@ -1,10 +1,10 @@
-// Unit tests for lkEnv.h.
+// Unit tests for lkHelper.h (environment variable helpers).
 #include <cstdlib>
 #include <string>
 
 #include <gtest/gtest.h>
 
-#include "lkEnv.h"
+#include "lkHelper.h"
 
 namespace {
 

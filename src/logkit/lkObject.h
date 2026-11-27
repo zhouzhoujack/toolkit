@@ -3,7 +3,7 @@
 
 #include "lkCommon.h"
 
-#include "lkAssert.h"
+#include "lkHelper.h"
 #include "lkThreads.h"
 
 namespace toolkit {

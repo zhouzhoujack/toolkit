@@ -2,7 +2,7 @@
 #include "lkString.h"
 #include "lkGlobPattern.h"
 #include "lkFileUtils.h"
-#include "lkEnv.h"
+#include "lkHelper.h"
 
 #include <map>
 #include <vector>

@@ -114,7 +114,7 @@ install(EXPORT toolkitTargets
 # Only the headers reachable from the public header (lkGLog.h -> lkLog.h -> ...)
 # are installed, under include/toolkit/detail/. Headers that are used by the
 # implementation only (lkExpression.h, lkStream.h, lkGlobPattern.h, lkFileUtils.h,
-# lkDeflate.h, lkEnv.h, lkTimer.h, lkUri.h, lkHttpStream.h, lkUtils.h,
+# lkDeflate.h, lkTimer.h, lkUri.h, lkHttpStream.h,
 # utf_casefolding.h) are NOT installed at all: their symbols are hidden anyway,
 # so a consumer could not use them, and leaving them out makes a direct
 # #include fail outright instead of failing later at link time.
@@ -124,11 +124,11 @@ install(EXPORT toolkitTargets
 # lkGLog.h over the "lkXxx.h" quoted includes.
 # ---------------------------------------------------------------------------
 set(_logkit_installed_header_names
-    lkAssert.h
     lkCommon.h
     lkEvents.h
     lkEventsVar.h
     lkException.h
+    lkHelper.h
     lkLog.h
     lkObject.h
     lkObjectCollection.h

@@ -1,7 +1,7 @@
 #include "lkDeflate.h"
 
 #include "lkException.h"
-#include "lkAssert.h"
+#include "lkHelper.h"
 
 #include <algorithm>
 #include <zlib.h>
