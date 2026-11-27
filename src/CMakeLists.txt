@@ -123,8 +123,7 @@ set(_logkit_installed_header_names
     lkObject.h
     lkObjectCollection.h
     lkString.h
-    lkThreads.h
-    lkVariant.h)
+    lkThreads.h)
 
 set(logkit_detail_headers)
 foreach(_hdr IN LISTS _logkit_installed_header_names)
