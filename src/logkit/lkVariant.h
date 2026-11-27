@@ -1,5 +1,3 @@
-
-
 #ifndef _HDR_lkVariant
 #define _HDR_lkVariant
 

@@ -1819,7 +1819,7 @@ template <>
 void extractor_impl (Extractor &ex, Variant &v)
 {
   if (! test_extractor_impl (ex, v)) {
-    ex.error (logkit::to_string (tr ("Expected a value specification")));
+    ex.error (logkit::to_string (std::string ("Expected a value specification")));
   }
 }
 

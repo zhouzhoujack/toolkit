@@ -16,7 +16,7 @@ struct InternalException
   : public Exception
 {
   InternalException (const char *file, int line, const char *cond)
-    : Exception (tr ("Internal error: %s:%d %s was not true"), file, line, cond)
+    : Exception (std::string ("Internal error: %s:%d %s was not true"), file, line, cond)
   { }
 };
 

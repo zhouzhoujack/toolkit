@@ -26,9 +26,9 @@ public:
     : m_initialized (false)
   {
     if (pthread_mutex_init (&m_mutex, NULL) != 0) {
-      error << tr ("Unable to create pthread Mutex for WaitCondition");
+      error << std::string ("Unable to create pthread Mutex for WaitCondition");
     } else if (pthread_cond_init(&m_cond, NULL) != 0) {
-      error << tr ("Unable to create pthread Condition for WaitCondition");
+      error << std::string ("Unable to create pthread Condition for WaitCondition");
     } else {
       m_initialized = true;
     }
@@ -72,13 +72,13 @@ public:
       if (res == ETIMEDOUT) {
         woken = false;
       } else if (res) {
-        error << tr ("Error waiting for pthread Condition (timed)");
+        error << std::string ("Error waiting for pthread Condition (timed)");
       }
 
     } else {
 
       if (pthread_cond_wait (&m_cond, &m_mutex) != 0) {
-        error << tr ("Error waiting for pthread Condition (timed)");
+        error << std::string ("Error waiting for pthread Condition (timed)");
       }
 
     }
@@ -182,10 +182,10 @@ void Thread::do_run ()
     run ();
     mp_data->running = false;
   } catch (Exception &ex) {
-    error << tr ("Exception from thread : ") << ex.msg ();
+    error << std::string ("Exception from thread : ") << ex.msg ();
     mp_data->running = false;
   } catch (...) {
-    error << tr ("Unspecific exception from thread");
+    error << std::string ("Unspecific exception from thread");
     mp_data->running = false;
   }
 }
@@ -227,14 +227,14 @@ void Thread::start ()
   mp_data->initialized = true;
   mp_data->running = true;
   if (pthread_create (&mp_data->pthread, NULL, &start_thread, (void *) this) != 0) {
-    error << tr ("Failed to create thread");
+    error << std::string ("Failed to create thread");
   }
 }
 
 void Thread::terminate ()
 {
   if (isRunning () && pthread_cancel (mp_data->pthread) != 0) {
-    error << tr ("Failed to terminate thread");
+    error << std::string ("Failed to terminate thread");
   }
 }
 
@@ -260,7 +260,7 @@ bool Thread::wait (unsigned long time)
     if (res == ETIMEDOUT) {
       return false;
     } else if (res) {
-      error << tr ("Could not join threads");
+      error << std::string ("Could not join threads");
     }
 
     return true;
@@ -268,7 +268,7 @@ bool Thread::wait (unsigned long time)
   } else {
 
     if (pthread_join (mp_data->pthread, &mp_data->return_code) != 0) {
-      error << tr ("Could not join threads");
+      error << std::string ("Could not join threads");
     }
 
     return true;
