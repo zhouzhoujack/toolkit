@@ -2,8 +2,6 @@
 
 #include "lkString.h"
 
-#include <string>
-
 namespace toolkit {
 namespace logkit {
 

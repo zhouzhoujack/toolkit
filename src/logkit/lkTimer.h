@@ -1,9 +1,5 @@
-
-
 #ifndef HDR_lkTimer
 #define HDR_lkTimer
-
-#include "lkCommon.h"
 
 #include <string>
 #include <stdint.h>

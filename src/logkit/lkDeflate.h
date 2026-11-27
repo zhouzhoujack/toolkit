@@ -1,8 +1,6 @@
 #ifndef HDR_lkDeflate
 #define HDR_lkDeflate
 
-#include "lkCommon.h"
-
 #include "lkStream.h"
 #include "lkException.h"
 

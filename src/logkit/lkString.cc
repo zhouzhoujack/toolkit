@@ -1,3 +1,5 @@
+#include "lkString.h"
+
 #include <cstdlib>
 #include <cstdio>
 #include <cmath>
@@ -6,10 +8,8 @@
 #include <limits>
 #include <vector>
 #include <sstream>
-#include <cwctype>
 #include <algorithm>
 
-#include "lkString.h"
 #include "lkExpression.h"
 
 namespace toolkit {

@@ -1,9 +1,5 @@
-
-
 #ifndef HDR_lkURI
 #define HDR_lkURI
-
-#include "lkCommon.h"
 
 #include <string>
 #include <map>
