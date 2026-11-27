@@ -7,8 +7,8 @@
 #include <vector>
 #include <algorithm>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief A helper function to handle event exceptions of Exception type
@@ -197,6 +197,7 @@ typedef event<> Event;
 #undef _TMPLARGS
 #undef _COUNT
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif

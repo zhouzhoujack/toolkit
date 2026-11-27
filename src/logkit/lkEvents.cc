@@ -3,8 +3,8 @@
 #include "lkLog.h"
 #include "lkCommon.h"
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 void handle_event_exception (Exception &ex)
 {
@@ -20,4 +20,5 @@ void handle_event_exception (std::exception &ex)
   warn << ex.what ();
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit

@@ -5,8 +5,8 @@
 #include <string.h>
 #include <limits>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 // --------------------------------------------------------------------
 //  Implementation of VariantUserClassBase
@@ -1823,5 +1823,6 @@ void extractor_impl (Extractor &ex, Variant &v)
   }
 }
 
-} } // namespace toolkit::logkit
+} // namespace logkit
+} // namespace toolkit
 

@@ -30,8 +30,8 @@
 
 class QNetworkReply;
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief A callback interface to provide the authentication data
@@ -173,7 +173,8 @@ private:
   InputHttpStreamPrivateData *mp_data;
 };
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

@@ -30,8 +30,8 @@
 
 #include <stdio.h>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 // -------------------------------------------------------------
 
@@ -211,5 +211,6 @@ Clock::current ()
   return c;
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit
 

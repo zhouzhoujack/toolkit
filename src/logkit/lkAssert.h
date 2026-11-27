@@ -1,14 +1,8 @@
 #ifndef HDR_lkAssert
 #define HDR_lkAssert
 
-#include "lkCommon.h"
-
-namespace toolkit { namespace logkit
-{
-
-/** 
- *  @brief The corresponding assert macro
- */
+namespace toolkit {
+namespace logkit {
 
 [[noreturn]] void assertion_failed (const char *filename, unsigned int line, const char *condition);
 
@@ -17,7 +11,8 @@ namespace toolkit { namespace logkit
   assertion_failed (__FILE__, __LINE__, #COND); \
 }
 
-} } // namespace toolkit::logkit
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

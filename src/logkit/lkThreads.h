@@ -8,8 +8,8 @@
 //  atomics taken from https://github.com/mbitsnbites/atomic
 #include "atomic/spinlock.h"
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief A mutex implementation
@@ -163,6 +163,7 @@ public:
   }
 };
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif

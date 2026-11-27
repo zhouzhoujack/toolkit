@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <langinfo.h>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 std::string system_to_string (const std::string &s)
 {
@@ -27,4 +27,5 @@ std::string tr (const char *s)
   return std::string (s);
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit

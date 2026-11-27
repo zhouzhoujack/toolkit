@@ -28,8 +28,8 @@
 
 #include <map>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief A template class mapping a begin .. end iterator pair to the at_end semantics
@@ -358,7 +358,8 @@ struct get_inner_type<X &>
   typedef X result;
 };
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

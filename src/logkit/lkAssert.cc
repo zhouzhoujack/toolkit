@@ -3,10 +3,8 @@
 #include "lkException.h"
 #include "lkLog.h"
 
-namespace toolkit { 
-
-namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 //  to allow setting a debug breakpoint to this function, we declare it "C"
 extern "C"
@@ -22,7 +20,6 @@ assertion_failed (const char *filename, unsigned int line, const char *condition
   throw InternalException (filename, line, condition); 
 }
 
-}   // namespace logkit
-
-}   // namespace toolkit
+} // namespace logkit
+} // namespace toolkit
 

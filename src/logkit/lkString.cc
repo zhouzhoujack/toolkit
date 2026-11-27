@@ -13,8 +13,8 @@
 #include "lkExpression.h"
 #include "lkInternational.h"
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 static std::locale c_locale ("C");
 
@@ -1818,4 +1818,5 @@ sprintf (const std::string &f, const std::vector <Variant> &vv, unsigned int a0)
   return sprintf (f.c_str (), vv, a0);
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit

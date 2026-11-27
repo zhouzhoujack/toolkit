@@ -26,8 +26,8 @@
 
 #include <cstring>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 class GlobPatternOpBase
 {
@@ -860,4 +860,5 @@ bool GlobPattern::match (const std::string &s, std::vector<std::string> &e) cons
   return op ()->match (s.c_str (), &e);
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit

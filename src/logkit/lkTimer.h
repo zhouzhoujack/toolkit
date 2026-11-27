@@ -32,8 +32,8 @@
 
 class QDateTime;
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief clock_gettime is not implemented in Mac OS X 10.11 and lower
@@ -267,7 +267,8 @@ private:
   timer_t m_clock_ms;
 };
 
-} } // namespace toolkit::logkit
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

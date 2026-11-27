@@ -27,8 +27,8 @@
 #include <cstring>
 #include <cstdio>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 static bool is_hex (char c)
 {
@@ -250,5 +250,6 @@ URI::resolved (const URI &other) const
   return res;
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit
 

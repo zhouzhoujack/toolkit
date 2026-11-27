@@ -2,8 +2,8 @@
 
 #include <memory>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 // ---------------------------------------------------------------------
 //  Object implementation
@@ -252,4 +252,5 @@ void WeakOrSharedPtr::reset (Object *t, bool is_shared, bool is_event)
   }
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit

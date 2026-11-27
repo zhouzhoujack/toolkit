@@ -29,8 +29,8 @@
 
 #include <zlib.h>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 // ------------------------------------------------------------------------
 //  The Huffmann decoder core
@@ -556,5 +556,6 @@ DeflateFilter::flush ()
   m_finished = true;
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit
 

@@ -5,8 +5,8 @@
 
 #include <string>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief Gets the value for the given environment variable
@@ -36,7 +36,8 @@ bool has_env (const std::string &name);
  */
 bool app_flag (const std::string &name);
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

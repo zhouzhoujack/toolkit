@@ -32,8 +32,8 @@
 //  forware definition of the zlib stream structure - we can omit the zlib header here
 struct z_stream_s;
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 class HuffmannDecoder;
 
@@ -248,7 +248,8 @@ private:
 
 };
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

@@ -23,8 +23,8 @@ namespace gsi
   template <class X> const ClassBase *cls_decl ();
 }
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 class Extractor;
 class EvalClass;
@@ -1478,7 +1478,8 @@ template<> inline bool Variant::can_convert_to<const char *> () const         { 
  */
 void initialize_variant_class_table ();
 
-} } // namespace toolkit::logkit
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

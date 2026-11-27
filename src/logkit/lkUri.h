@@ -29,8 +29,8 @@
 #include <string>
 #include <map>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief A class representing a URI
@@ -170,7 +170,8 @@ private:
   std::string m_fragment;
 };
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

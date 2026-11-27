@@ -32,8 +32,8 @@
 #include <errno.h>
 #include <unistd.h>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 // -------------------------------------------------------------------------------
 //  WaitCondition implementation
@@ -371,4 +371,5 @@ ThreadStorageHolderBase *ThreadStorageBase::holder ()
   }
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit
