@@ -1,6 +1,5 @@
 #include "lkThreads.h"
 
-#include "lkUtils.h"
 #include "lkTimer.h"
 #include "lkLog.h"
 

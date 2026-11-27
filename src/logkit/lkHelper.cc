@@ -1,10 +1,15 @@
-#include "lkAssert.h"
+#include "lkHelper.h"
 
 #include "lkException.h"
 #include "lkGLog.h"
+#include "lkString.h"
 
 namespace toolkit {
 namespace logkit {
+
+// ---------------------------------------------------------------------------
+// Assertions (formerly lkAssert.cc)
+// ---------------------------------------------------------------------------
 
 namespace {
 
@@ -25,16 +30,35 @@ struct InternalException
 extern "C"
 void _assertion_failed (const char *filename, unsigned int line, const char *condition)
 {
-  LOGE << filename << "," << line << "," << condition; 
+  LOGE << filename << "," << line << "," << condition;
 }
 
-void 
+void
 assertion_failed (const char *filename, unsigned int line, const char *condition)
 {
   _assertion_failed (filename, line, condition);
-  throw InternalException (filename, line, condition); 
+  throw InternalException (filename, line, condition);
+}
+
+// ---------------------------------------------------------------------------
+// Environment variables (formerly lkEnv.cc)
+// ---------------------------------------------------------------------------
+
+std::string get_env (const std::string &name, const std::string &def_value)
+{
+  char *env = getenv (name.c_str ());
+  if (env) {
+    return system_to_string (env);
+  } else {
+    return def_value;
+  }
+}
+
+bool has_env (const std::string &name)
+{
+  char *env = getenv (name.c_str ());
+  return env != 0;
 }
 
 } // namespace logkit
 } // namespace toolkit
-

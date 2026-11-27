@@ -9,7 +9,7 @@
 #include <unistd.h>
 
 #include "lkDeflate.h"
-#include "lkAssert.h"
+#include "lkHelper.h"
 #include "lkFileUtils.h"
 #include "lkLog.h"
 

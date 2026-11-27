@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <typeinfo>
 
-#include "lkAssert.h"
+#include "lkHelper.h"
 #include "lkObject.h"
 
 namespace toolkit {
