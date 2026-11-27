@@ -16,7 +16,7 @@ foreach(test_src IN LISTS logkit_test_sources)
     target_link_libraries("${test_name}" PRIVATE logkit_objects GTest::gtest_main ZLIB::ZLIB)
 
     # logkit's own include directories are PRIVATE, so the tests add them
-    # explicitly (sources include "tlString.h" etc.).
+    # explicitly (sources include "lkString.h" etc.).
     target_include_directories("${test_name}" PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/../logkit")
 
