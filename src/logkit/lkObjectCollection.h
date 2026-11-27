@@ -2,7 +2,6 @@
 #define HDR_lkObjectCollection
 
 #include "lkObject.h"
-#include "lkEvents.h"
 #include "lkThreads.h"
 
 #include <iterator>
@@ -232,12 +231,10 @@ public:
    */
   void clear ()
   {
-    m_about_to_change ();
     while (! empty ()) {
       erase (mp_first);
     }
     lk_assert (m_size == 0);
-    m_changed ();
   }
 
   /**
@@ -253,9 +250,7 @@ public:
     }
 
     if (h) {
-      m_about_to_change ();
       erase (h);
-      m_changed ();
     }
   }
 
@@ -266,9 +261,7 @@ public:
    */
   void erase (iterator i)
   {
-    m_about_to_change ();
     erase (i.holder ());
-    m_changed ();
   }
 
   /**
@@ -277,9 +270,7 @@ public:
    */
   void insert (iterator before, T *object)
   {
-    m_about_to_change ();
     insert (before.holder (), new holder_type (this, object));
-    m_changed ();
   }
 
   /**
@@ -288,9 +279,7 @@ public:
    */
   void insert (iterator before, const weak_or_shared_ptr<T, Shared> &object)
   {
-    m_about_to_change ();
     insert (before.holder (), new holder_type (this, object));
-    m_changed ();
   }
 
   /**
@@ -299,9 +288,7 @@ public:
    */
   void push_back (T *object)
   {
-    m_about_to_change ();
     insert (0, new holder_type (this, object));
-    m_changed ();
   }
 
   /**
@@ -310,9 +297,7 @@ public:
    */
   void push_back (const weak_or_shared_ptr<T, Shared> &object)
   {
-    m_about_to_change ();
     insert (0, new holder_type (this, object));
-    m_changed ();
   }
 
   /**
@@ -323,9 +308,7 @@ public:
   void pop_back ()
   {
     if (! empty ()) {
-      m_about_to_change ();
       erase (mp_last);
-      m_changed ();
     }
   }
 
@@ -393,22 +376,6 @@ public:
     return const_iterator (0);
   }
 
-  /**
-   *  @brief Exposes a signal that is issued before a change is made
-   */
-  Event &about_to_change ()
-  {
-    return m_about_to_change;
-  }
-
-  /**
-   *  @brief Exposes a signal that is issued after a change is made
-   */
-  Event &changed ()
-  {
-    return m_changed;
-  }
-
 private:
   friend class holder_type;
   Mutex m_lock;
@@ -417,9 +384,7 @@ private:
   {
     MutexLocker locker (&m_lock);
     lk_assert (! empty ());
-    m_about_to_change ();
     erase (h);
-    m_changed ();
   }
 
   void erase (holder_type *h)
@@ -472,7 +437,6 @@ private:
     ++m_size;
   }
 
-  Event m_about_to_change, m_changed;
   holder_type *mp_first, *mp_last;
   size_t m_size;
 };
