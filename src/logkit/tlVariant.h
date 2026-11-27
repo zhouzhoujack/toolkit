@@ -35,7 +35,7 @@ class EvalClass;
  *  There must be one particular class object per class. In particular the equality of the 
  *  class object pointer's must indicate that two object's share the same class.
  */
-class TL_PUBLIC VariantUserClassBase
+class VariantUserClassBase
 {
 public:
   VariantUserClassBase () { }
@@ -77,7 +77,7 @@ protected:
  *  We will employ RTTI to identify a type through that base class.
  */
 template <class T>
-class TL_PUBLIC_TEMPLATE VariantUserClass
+class VariantUserClass
   : public VariantUserClassBase
 {
 public:
@@ -112,7 +112,7 @@ protected:
  *   This variant is capable of storing long, double, std::string, void (nil) and lists
  *   of other variants.
  */
-class TL_PUBLIC Variant
+class Variant
 {
 public:
   enum type { 

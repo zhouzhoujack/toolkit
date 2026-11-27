@@ -42,7 +42,7 @@ namespace toolkit { namespace logkit
  *  constructor methods.
  */
 
-class TL_PUBLIC Exception 
+class Exception 
 {
 public:
   Exception (const std::string &msg)
@@ -137,7 +137,7 @@ private:
  *  @brief A "neutral" exception thrown to terminate some operation
  *  This exception is not shown.
  */
-struct TL_PUBLIC CancelException
+struct CancelException
   : public Exception
 {
   CancelException ()
@@ -148,7 +148,7 @@ struct TL_PUBLIC CancelException
 /**
  *  @brief A special "internal" exception class used by tl_assert
  */
-struct TL_PUBLIC InternalException
+struct InternalException
   : public Exception
 {
   InternalException (const char *file, int line, const char *cond)

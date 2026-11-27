@@ -13,12 +13,12 @@ namespace toolkit { namespace logkit
  *
  *  If the environment variable is not set, the default value will be returned.
  */
-std::string TL_PUBLIC get_env (const std::string &name, const std::string &def_value = std::string ());
+std::string get_env (const std::string &name, const std::string &def_value = std::string ());
 
 /**
  *  @brief Gets the value if the given environment variable is set
  */
-bool TL_PUBLIC has_env (const std::string &name);
+bool has_env (const std::string &name);
 
 /**
  *  @brief Gets an application flag with the given name
@@ -34,7 +34,7 @@ bool TL_PUBLIC has_env (const std::string &name);
  *  If the corresponding variable exists and does not have a value of "0", true
  *  is returned from this function.
  */
-bool TL_PUBLIC app_flag (const std::string &name);
+bool app_flag (const std::string &name);
 
 } }
 

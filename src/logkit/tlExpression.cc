@@ -212,7 +212,7 @@ static unsigned long long to_ulonglong (const ExpressionParserContext &context, 
 // ----------------------------------------------------------------------------
 //  EvalTarget: a class that encapsulates the target of an evaluation
 
-class TL_PUBLIC EvalTarget
+class EvalTarget
 {
 public:
   EvalTarget ()
@@ -302,7 +302,7 @@ private:
 // ----------------------------------------------------------------------------
 //  A class object for the Variant list 
 
-class TL_PUBLIC ListClass
+class ListClass
   : public EvalClass
 {
 public:
@@ -339,7 +339,7 @@ ListClass ListClass::instance;
 // ----------------------------------------------------------------------------
 //  A class object for the Variant array 
 
-class TL_PUBLIC ArrayClass
+class ArrayClass
   : public EvalClass
 {
 public:
@@ -441,7 +441,7 @@ ExpressionNode::add_child (ExpressionNode *node)
 /**
  *  @brief Assign operator node
  */
-class TL_PUBLIC AssignExpressionNode
+class AssignExpressionNode
   : public ExpressionNode
 {
 public:
@@ -479,7 +479,7 @@ public:
 /**
  *  @brief Less operator node
  */
-class TL_PUBLIC LessExpressionNode
+class LessExpressionNode
   : public ExpressionNode
 {
 public:
@@ -529,7 +529,7 @@ public:
 /**
  *  @brief Less or equal operator node
  */
-class TL_PUBLIC LessOrEqualExpressionNode
+class LessOrEqualExpressionNode
   : public ExpressionNode
 {
 public:
@@ -579,7 +579,7 @@ public:
 /**
  *  @brief Greater operator node
  */
-class TL_PUBLIC GreaterExpressionNode
+class GreaterExpressionNode
   : public ExpressionNode
 {
 public:
@@ -629,7 +629,7 @@ public:
 /**
  *  @brief Greater or equal operator node
  */
-class TL_PUBLIC GreaterOrEqualExpressionNode
+class GreaterOrEqualExpressionNode
   : public ExpressionNode
 {
 public:
@@ -679,7 +679,7 @@ public:
 /**
  *  @brief Equal operator node
  */
-class TL_PUBLIC EqualExpressionNode
+class EqualExpressionNode
   : public ExpressionNode
 {
 public:
@@ -729,7 +729,7 @@ public:
 /**
  *  @brief Not equal operator node
  */
-class TL_PUBLIC NotEqualExpressionNode
+class NotEqualExpressionNode
   : public ExpressionNode
 {
 public:
@@ -779,7 +779,7 @@ public:
 /**
  *  @brief Match operator node
  */
-class TL_PUBLIC MatchExpressionNode
+class MatchExpressionNode
   : public ExpressionNode
 {
 public:
@@ -838,7 +838,7 @@ private:
 /**
  *  @brief Match substring reference 
  */
-class TL_PUBLIC MatchSubstringReferenceNode
+class MatchSubstringReferenceNode
   : public ExpressionNode
 {
 public:
@@ -876,7 +876,7 @@ private:
 /**
  *  @brief NoMatch operator node
  */
-class TL_PUBLIC NoMatchExpressionNode
+class NoMatchExpressionNode
   : public ExpressionNode
 {
 public:
@@ -926,7 +926,7 @@ public:
 /**
  *  @brief Logical and expression node
  */
-class TL_PUBLIC LogAndExpressionNode
+class LogAndExpressionNode
   : public ExpressionNode
 {
 public:
@@ -968,7 +968,7 @@ public:
 /**
  *  @brief Logical or expression node
  */
-class TL_PUBLIC LogOrExpressionNode
+class LogOrExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1009,7 +1009,7 @@ public:
 /**
  *  @brief '?:' operator expression node
  */
-class TL_PUBLIC IfExpressionNode
+class IfExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1047,7 +1047,7 @@ public:
 /**
  *  @brief Shift left expression node
  */
-class TL_PUBLIC ShiftLeftExpressionNode
+class ShiftLeftExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1103,7 +1103,7 @@ public:
 /**
  *  @brief Shift right expression node
  */
-class TL_PUBLIC ShiftRightExpressionNode
+class ShiftRightExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1159,7 +1159,7 @@ public:
 /**
  *  @brief Plus expression node
  */
-class TL_PUBLIC PlusExpressionNode
+class PlusExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1221,7 +1221,7 @@ public:
 /**
  *  @brief Minus expression node
  */
-class TL_PUBLIC MinusExpressionNode
+class MinusExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1281,7 +1281,7 @@ public:
 /**
  *  @brief Star expression node
  */
-class TL_PUBLIC StarExpressionNode
+class StarExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1371,7 +1371,7 @@ public:
 /**
  *  @brief Slash expression node
  */
-class TL_PUBLIC SlashExpressionNode
+class SlashExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1455,7 +1455,7 @@ public:
 /**
  *  @brief Percent expression node
  */
-class TL_PUBLIC PercentExpressionNode
+class PercentExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1527,7 +1527,7 @@ public:
 /**
  *  @brief Ampersand expression node
  */
-class TL_PUBLIC AmpersandExpressionNode
+class AmpersandExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1583,7 +1583,7 @@ public:
 /**
  *  @brief Pipe expression node
  */
-class TL_PUBLIC PipeExpressionNode
+class PipeExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1639,7 +1639,7 @@ public:
 /**
  *  @brief Acute expression node
  */
-class TL_PUBLIC AcuteExpressionNode
+class AcuteExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1695,7 +1695,7 @@ public:
 /**
  *  @brief Index expression node
  */
-class TL_PUBLIC IndexExpressionNode
+class IndexExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1777,7 +1777,7 @@ public:
 /**
  *  @brief Unary minus expression node
  */
-class TL_PUBLIC UnaryMinusExpressionNode
+class UnaryMinusExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1834,7 +1834,7 @@ public:
 /**
  *  @brief Unary tilde expression node
  */
-class TL_PUBLIC UnaryTildeExpressionNode
+class UnaryTildeExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1889,7 +1889,7 @@ public:
 /**
  *  @brief Unary not expression node
  */
-class TL_PUBLIC UnaryNotExpressionNode
+class UnaryNotExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1926,7 +1926,7 @@ public:
 /**
  *  @brief Constant expression node
  */
-class TL_PUBLIC ConstantExpressionNode
+class ConstantExpressionNode
   : public ExpressionNode
 {
 public:
@@ -1959,7 +1959,7 @@ private:
 /**
  *  @brief Evaluates a bracket expression in the context
  */
-class TL_PUBLIC ContextEvaluationNode
+class ContextEvaluationNode
   : public ExpressionNode
 {
 public:
@@ -1999,7 +1999,7 @@ private:
 /**
  *  @brief Method call expression node
  */
-class TL_PUBLIC MethodExpressionNode
+class MethodExpressionNode
   : public ExpressionNode
 {
 public:
@@ -2059,7 +2059,7 @@ private:
 /**
  *  @brief List expression node
  */
-class TL_PUBLIC ListExpressionNode
+class ListExpressionNode
   : public ExpressionNode
 {
 public:
@@ -2096,7 +2096,7 @@ public:
 /**
  *  @brief Array expression node
  */
-class TL_PUBLIC ArrayExpressionNode
+class ArrayExpressionNode
   : public ExpressionNode
 {
 public:
@@ -2132,7 +2132,7 @@ public:
 /**
  *  @brief Sequence expression node
  */
-class TL_PUBLIC SequenceExpressionNode
+class SequenceExpressionNode
   : public ExpressionNode
 {
 public:
@@ -2164,7 +2164,7 @@ public:
 /**
  *  @brief Static function expression node
  */
-class TL_PUBLIC StaticFunctionExpressionNode
+class StaticFunctionExpressionNode
   : public ExpressionNode
 {
 public:
@@ -2208,7 +2208,7 @@ private:
 /**
  *  @brief Variable expression node (as RValue)
  */
-class TL_PUBLIC RVariableExpressionNode
+class RVariableExpressionNode
   : public ExpressionNode
 {
 public:
@@ -2241,7 +2241,7 @@ private:
 /**
  *  @brief Variable expression node (as LValue)
  */
-class TL_PUBLIC LVariableExpressionNode
+class LVariableExpressionNode
   : public ExpressionNode
 {
 public:

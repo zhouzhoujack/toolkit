@@ -1694,7 +1694,7 @@ Variant Variant::user_dup () const
 //  Extractor implementation
 
 template <>
-TL_PUBLIC bool test_extractor_impl (Extractor &ex, Variant &v)
+bool test_extractor_impl (Extractor &ex, Variant &v)
 {
   std::string s;
 
@@ -1816,7 +1816,7 @@ TL_PUBLIC bool test_extractor_impl (Extractor &ex, Variant &v)
 }
 
 template <>
-TL_PUBLIC void extractor_impl (Extractor &ex, Variant &v)
+void extractor_impl (Extractor &ex, Variant &v)
 {
   if (! test_extractor_impl (ex, v)) {
     ex.error (logkit::to_string (tr ("Expected a value specification")));

@@ -26,12 +26,12 @@ namespace toolkit { namespace logkit
  *
  *  The initial level is 10; KLAYOUT_VERBOSITY overrides it.
  */
-TL_PUBLIC void verbosity (int level);
+TL_EXPORT void verbosity (int level);
 
 /**
  *  @brief Get the verbosity level
  */
-TL_PUBLIC int verbosity ();
+TL_EXPORT int verbosity ();
 
 /**
  *  @brief A "endl" tag class
@@ -39,12 +39,12 @@ TL_PUBLIC int verbosity ();
  *  This class is supposed to issue a end-of-line.
  */
 
-struct TL_PUBLIC ChannelEndl 
+struct TL_EXPORT ChannelEndl 
 {
   //  just a "tag"
 };
 
-extern TL_PUBLIC ChannelEndl endl;
+extern TL_EXPORT ChannelEndl endl;
 
 /**
  *  @brief A "noendl" tag class
@@ -52,15 +52,15 @@ extern TL_PUBLIC ChannelEndl endl;
  *  This class is supposed to suppress the implicit end-of-line.
  */
 
-struct TL_PUBLIC ChannelNoendl 
+struct TL_EXPORT ChannelNoendl 
 {
   //  just a "tag"
 };
 
-extern TL_PUBLIC ChannelNoendl noendl;
+extern TL_EXPORT ChannelNoendl noendl;
 
 
-class TL_PUBLIC ChannelProxy;
+class TL_EXPORT ChannelProxy;
 
 /**
  *  @brief A basic channel
@@ -69,7 +69,7 @@ class TL_PUBLIC ChannelProxy;
  *  a special implementation for the channels.
  */
 
-class TL_PUBLIC Channel
+class TL_EXPORT Channel
   : public Object
 {
 public:
@@ -167,7 +167,7 @@ private:
  *  be released.
  */
 
-class TL_PUBLIC ChannelProxy
+class TL_EXPORT ChannelProxy
 {
 public:
   /**
@@ -270,7 +270,7 @@ Channel::operator<< (ChannelEndl)
  *  a prefix.
  */
 
-class TL_PUBLIC LogAt
+class TL_EXPORT LogAt
 {
 public:
   LogAt (Channel &channel, const char *file, int line);
@@ -308,7 +308,7 @@ private:
  *  @brief A multi-cast log distribution object
  */
 
-class TL_PUBLIC LogTee : public Channel
+class TL_EXPORT LogTee : public Channel
 {
 public:
   LogTee ();
@@ -334,21 +334,21 @@ private:
 /// The static instance of the log channel
 /// The log channel is identical to the info channel but is silent depending on the verbosity and 
 /// the output mode. It should be used for general notifications like the beginning of a operation.
-extern TL_PUBLIC LogTee log;
+extern TL_EXPORT LogTee log;
 
 /// The static instance of the info channel
-extern TL_PUBLIC LogTee info;
+extern TL_EXPORT LogTee info;
 
 /// The static instance of the warning channel
-extern TL_PUBLIC LogTee warn;
+extern TL_EXPORT LogTee warn;
 
 /// The static instance of the error channel
-extern TL_PUBLIC LogTee error;
+extern TL_EXPORT LogTee error;
 
 /// The static instance of the fatal channel
 /// Messages go to stderr with a "FATAL: " prefix; the process is aborted once the
 /// message has been flushed (i.e. at the end of the statement).
-extern TL_PUBLIC LogTee fatal;
+extern TL_EXPORT LogTee fatal;
 
 /**
  *  @brief Level-bound log targets

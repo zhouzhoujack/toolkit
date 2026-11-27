@@ -590,11 +590,11 @@ FatalChannel::begin ()
 // ------------------------------------------------
 //  The instances of the log channels
 
-TL_PUBLIC LogTee fatal (new FatalChannel (), true);
-TL_PUBLIC LogTee warn (new WarningChannel (), true);
-TL_PUBLIC LogTee info (new InfoChannel (0, "[info]"), true);
-TL_PUBLIC LogTee log (new InfoChannel (10, "[log]"), true);
-TL_PUBLIC LogTee error (new ErrorChannel (), true);
+TL_EXPORT LogTee fatal (new FatalChannel (), true);
+TL_EXPORT LogTee warn (new WarningChannel (), true);
+TL_EXPORT LogTee info (new InfoChannel (0, "[info]"), true);
+TL_EXPORT LogTee log (new InfoChannel (10, "[log]"), true);
+TL_EXPORT LogTee error (new ErrorChannel (), true);
 
 } } // namespace toolkit::logkit
 

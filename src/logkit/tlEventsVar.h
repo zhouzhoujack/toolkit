@@ -31,7 +31,7 @@
 #endif
 
 template <_TMPLARGS>
-class TL_PUBLIC_TEMPLATE event_function_base<_TMPLARGLISTP>
+class event_function_base<_TMPLARGLISTP>
   : public Object
 {
 public:
@@ -42,7 +42,7 @@ public:
 };
 
 template <_JOIN(class T, _TMPLARGS)>
-class TL_PUBLIC_TEMPLATE event_function<T, _TMPLARGLISTP>
+class event_function<T, _TMPLARGLISTP>
   : public event_function_base<_TMPLARGLIST>
 {
 public:
@@ -71,7 +71,7 @@ private:
 };
 
 template <class T, _JOIN(class D, _TMPLARGS)>
-class TL_PUBLIC_TEMPLATE event_function_with_data<T, D, _TMPLARGLISTP>
+class event_function_with_data<T, D, _TMPLARGLISTP>
   : public event_function_base<_TMPLARGLIST>
 {
 public:
@@ -101,7 +101,7 @@ private:
 };
 
 template <_JOIN(class T, _TMPLARGS)>
-class TL_PUBLIC_TEMPLATE generic_event_function<T, _TMPLARGLISTP>
+class generic_event_function<T, _TMPLARGLISTP>
   : public event_function_base<_TMPLARGLIST>
 {
 public:
@@ -131,7 +131,7 @@ private:
 };
 
 template <class T, _JOIN(class D, _TMPLARGS)>
-class TL_PUBLIC_TEMPLATE generic_event_function_with_data<T, D, _TMPLARGLISTP>
+class generic_event_function_with_data<T, D, _TMPLARGLISTP>
   : public event_function_base<_TMPLARGLIST>
 {
 public:
@@ -162,7 +162,7 @@ private:
 };
 
 template <_TMPLARGS>
-class TL_PUBLIC_TEMPLATE event<_TMPLARGLISTP>
+class event<_TMPLARGLISTP>
 {
 public:
   typedef event_function_base<_TMPLARGLISTP> func;

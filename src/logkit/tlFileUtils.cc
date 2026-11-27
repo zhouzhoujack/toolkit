@@ -50,9 +50,9 @@ static bool is_win ()
 }
 
 //  Secret mode switchers for testing
-TL_PUBLIC void file_utils_force_windows () { s_mode = OS_Windows; }
-TL_PUBLIC void file_utils_force_linux () { s_mode = OS_Linux; }
-TL_PUBLIC void file_utils_force_reset () { s_mode = OS_Auto; }
+void file_utils_force_windows () { s_mode = OS_Windows; }
+void file_utils_force_linux () { s_mode = OS_Linux; }
+void file_utils_force_reset () { s_mode = OS_Auto; }
 
 const char *line_separator ()
 {

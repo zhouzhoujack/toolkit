@@ -10,7 +10,7 @@ namespace toolkit { namespace logkit
  *  @brief The corresponding assert macro
  */
 
-[[noreturn]] TL_PUBLIC void assertion_failed (const char *filename, unsigned int line, const char *condition);
+[[noreturn]] void assertion_failed (const char *filename, unsigned int line, const char *condition);
 
 //  the throw int(0) instruction will tell the compiler that the assertion will not return
 #define tl_assert(COND) if (!(COND)) { \

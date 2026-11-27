@@ -55,7 +55,7 @@ class ExpressionParserContext;
  *
  *  Second, this object provides the database unit value for physical unit conversions.
  */
-class TL_PUBLIC ContextHandler
+class ContextHandler
 {
 public:
   /**
@@ -97,7 +97,7 @@ public:
 /**
  *  @brief An exception thrown by the evaluation
  */
-class TL_PUBLIC EvalError 
+class EvalError 
   : public Exception
 {
 public:
@@ -107,7 +107,7 @@ public:
 /**
  *  @brief An exception indicating that no such method exists
  */
-class TL_PUBLIC NoMethodError 
+class NoMethodError 
   : public EvalError
 {
 public:
@@ -117,7 +117,7 @@ public:
 /**
  *  @brief The expression parser context
  */
-class TL_PUBLIC ExpressionParserContext
+class ExpressionParserContext
   : public Extractor
 {
 public:
@@ -160,7 +160,7 @@ private:
 /**
  *  @brief A node within an expression tree
  */
-class TL_PUBLIC ExpressionNode
+class ExpressionNode
 {
 public:
   /**
@@ -218,7 +218,7 @@ protected:
  *  a class derived from VariantUserClassBase which implements eval_cls to return an EvalClass
  *  implementation which executes the method.
  */
-class TL_PUBLIC EvalClass
+class EvalClass
 {
 public:
   /**
@@ -250,7 +250,7 @@ public:
 /**
  *  @brief A base class for a function 
  */
-class TL_PUBLIC EvalFunction
+class EvalFunction
 {
 public:
   /**
@@ -276,7 +276,7 @@ public:
 /**
  *  @brief Represents a expression to evaluate
  */
-class TL_PUBLIC Expression
+class Expression
 {
 public:
   /**
@@ -358,7 +358,7 @@ private:
 /**
  *  @brief Provides the context for the expression parser and evaluation
  */
-class TL_PUBLIC Eval
+class Eval
 {
 public:
   /**

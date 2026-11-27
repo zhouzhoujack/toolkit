@@ -38,7 +38,7 @@ namespace toolkit { namespace logkit
  *  This class is able to parse the URI and deliver the parts.
  */
 
-class TL_PUBLIC URI
+class URI
 {
 public:
   /**

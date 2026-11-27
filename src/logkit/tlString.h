@@ -27,7 +27,7 @@ template <class T> bool test_extractor_impl (Extractor &, T &);
  *  better suited to string objects that frequently change.
  */
 
-class TL_PUBLIC string
+class string
 {
 public:
   typedef std::allocator<char> allocator_t;
@@ -230,30 +230,30 @@ private:
   char *mp_rep;
 };
 
-TL_PUBLIC std::string to_upper_case (const std::string &s);
-TL_PUBLIC std::string to_lower_case (const std::string &s);
+std::string to_upper_case (const std::string &s);
+std::string to_lower_case (const std::string &s);
 
-TL_PUBLIC std::string to_string (double d, int prec);
-TL_PUBLIC std::string to_string (float d, int prec);
-TL_PUBLIC std::string to_string (const unsigned char *cp, int length);
-TL_PUBLIC std::string to_string (const char *cp, int length);
-TL_PUBLIC std::string to_string_from_local (const char *cp);
-TL_PUBLIC std::string to_local (const std::string &s);
+TL_EXPORT std::string to_string (double d, int prec);
+TL_EXPORT std::string to_string (float d, int prec);
+std::string to_string (const unsigned char *cp, int length);
+std::string to_string (const char *cp, int length);
+std::string to_string_from_local (const char *cp);
+std::string to_local (const std::string &s);
 
 template <class T> inline std::string to_string (const T &o) { return o.to_string (); }
 template <> inline std::string to_string (const double &d) { return to_string (d, 12); }
 template <> inline std::string to_string (const float &d) { return to_string (d, 6); }
-template <> TL_PUBLIC std::string to_string (const int &d);
-template <> TL_PUBLIC std::string to_string (const unsigned int &d);
-template <> TL_PUBLIC std::string to_string (const long &d);
-template <> TL_PUBLIC std::string to_string (const unsigned long &d);
-template <> TL_PUBLIC std::string to_string (const long long &d);
-template <> TL_PUBLIC std::string to_string (const unsigned long long &d);
-template <> TL_PUBLIC std::string to_string (const char * const &cp);
-template <> TL_PUBLIC std::string to_string (char * const &cp);
-template <> TL_PUBLIC std::string to_string (const unsigned char * const &cp);
-template <> TL_PUBLIC std::string to_string (unsigned char * const &cp);
-template <> TL_PUBLIC std::string to_string (const bool &b);
+template <> TL_EXPORT std::string to_string (const int &d);
+template <> TL_EXPORT std::string to_string (const unsigned int &d);
+template <> TL_EXPORT std::string to_string (const long &d);
+template <> TL_EXPORT std::string to_string (const unsigned long &d);
+template <> TL_EXPORT std::string to_string (const long long &d);
+template <> TL_EXPORT std::string to_string (const unsigned long long &d);
+template <> TL_EXPORT std::string to_string (const char * const &cp);
+template <> TL_EXPORT std::string to_string (char * const &cp);
+template <> TL_EXPORT std::string to_string (const unsigned char * const &cp);
+template <> TL_EXPORT std::string to_string (unsigned char * const &cp);
+template <> TL_EXPORT std::string to_string (const bool &b);
 template <> inline std::string to_string (const std::string &s) { return s; }
 
 //  variants utilize parsable strings because this way the string representation can be translated back
@@ -263,12 +263,12 @@ template <> inline std::string to_string (const Variant &v) { return v.to_parsab
 /**
  *  @brief Converts UTF-8 to wide character string
  */
-std::wstring TL_PUBLIC to_wstring (const std::string &s);
+std::wstring to_wstring (const std::string &s);
 
 /**
  *  @brief Converts a wide character string to UTF-8
  */
-std::string TL_PUBLIC to_string (const std::wstring &ws);
+std::string to_string (const std::wstring &ws);
 
 /**
  *  @brief Convert to a quoted string 
@@ -276,7 +276,7 @@ std::string TL_PUBLIC to_string (const std::wstring &ws);
  *  The string returned by this method can be read from a corresponding extractor with 
  *  the "read_quoted" method.
  */  
-TL_PUBLIC std::string to_quoted_string (const std::string &s);
+std::string to_quoted_string (const std::string &s);
 
 /**
  *  @brief Escape special characters in a string
@@ -285,7 +285,7 @@ TL_PUBLIC std::string to_quoted_string (const std::string &s);
  *  The format of the sequence is \xxx where x is the octal number of the 
  *  character and \r, \n and \t representing the CR, LF and TAB character.
  */
-TL_PUBLIC std::string escape_string (const std::string &value);
+std::string escape_string (const std::string &value);
 
 /**
  *  @brief Remove escape sequences from a string
@@ -294,14 +294,14 @@ TL_PUBLIC std::string escape_string (const std::string &value);
  *  The format of the sequence is \xxx where x is the octal number of the 
  *  character and \r, \n and \t representing the CR, LF and TAB character.
  */
-TL_PUBLIC std::string unescape_string (const std::string &value);
+std::string unescape_string (const std::string &value);
 
 /**
  *  @brief Levenshtein distance
  *
  *  This function computes the edit distance ("Levenshtein distance") between two strings.
  */  
-TL_PUBLIC int edit_distance (const std::string &a, const std::string &b);
+int edit_distance (const std::string &a, const std::string &b);
 
 /**
  *  @brief Convert to a word or quoted string 
@@ -309,13 +309,13 @@ TL_PUBLIC int edit_distance (const std::string &a, const std::string &b);
  *  The string returned by this method can be read from a corresponding extractor with 
  *  the "read_word_or_quoted" method with the given "non_term" characters.
  */  
-TL_PUBLIC std::string to_word_or_quoted_string (const std::string &s, const char *non_term = "_.$");
+std::string to_word_or_quoted_string (const std::string &s, const char *non_term = "_.$");
 
 /**
  *  @brief Escapes HTML (or XML) characters from in and adds the result to out
  *  If "replace_newlines" is true, "\n" will be replaced by "<br/>".
  */
-TL_PUBLIC void escape_to_html (std::string &out, const std::string &in, bool replace_newlines = true);
+void escape_to_html (std::string &out, const std::string &in, bool replace_newlines = true);
 
 /**
  *  @brief Escapes HTML (or XML) characters from in and returns the resulting string
@@ -323,48 +323,48 @@ TL_PUBLIC void escape_to_html (std::string &out, const std::string &in, bool rep
  *  attributes (in double quotes) too.
  *  If "replace_newlines" is true, "\n" will be replaced by "<br/>".
  */
-TL_PUBLIC std::string escaped_to_html (const std::string &in, bool replace_newlines = true);
+std::string escaped_to_html (const std::string &in, bool replace_newlines = true);
 
 /**
  *  @brief Replaces the "before" string by "after" in the "subject" string and returns the new string
  *  All occurrences are replaced.
  */
-TL_PUBLIC std::string replaced (const std::string &subject, const std::string &before, const std::string &after);
+std::string replaced (const std::string &subject, const std::string &before, const std::string &after);
 
 /**
  *  @brief Replicates the given string n times
  */
-TL_PUBLIC std::string replicate (const std::string &s, unsigned int n);
+std::string replicate (const std::string &s, unsigned int n);
 
 /**
  *  @brief Fills the string (to the right) with blanks until the desired length is reached
  */
-TL_PUBLIC std::string pad_string_right (unsigned int n, const std::string &s);
+std::string pad_string_right (unsigned int n, const std::string &s);
 
 /**
  *  @brief Fills the string (to the left) with blanks until the desired length is reached
  */
-TL_PUBLIC std::string pad_string_left (unsigned int n, const std::string &s);
+std::string pad_string_left (unsigned int n, const std::string &s);
 
 /**
  *  @brief Set the number of digits resolution for a micron display
  */
-TL_PUBLIC void set_micron_resolution (unsigned int ndigits);
+void set_micron_resolution (unsigned int ndigits);
 
 /**
  *  @brief A standard method to convert a micron value into a string for display
  */
-TL_PUBLIC std::string micron_to_string (double d);
+std::string micron_to_string (double d);
 
 /**
  *  @brief Set the number of digits resolution for a dbu display
  */
-TL_PUBLIC void set_db_resolution (unsigned int ndigits);
+void set_db_resolution (unsigned int ndigits);
 
 /**
  *  @brief A standard method to convert a coordinate in database units (pixel) into a string for display
  */
-TL_PUBLIC std::string db_to_string (double d);
+std::string db_to_string (double d);
 
 /**
  *  @brief A standard method to convert a coordinate in database units (pixel) into a string for display
@@ -392,7 +392,7 @@ inline std::string db_to_string (int64_t d)
  *  The stream in general consumes white spaces.
  *  It is possible to customize the extractor by overloading the error method for example.
  */
-class TL_PUBLIC Extractor
+class Extractor
 {
 public:
   struct end { };
@@ -761,16 +761,16 @@ private:
   std::string m_str;
 };
 
-TL_PUBLIC void from_string (const std::string &s, const char * &result);
-TL_PUBLIC void from_string (const std::string &s, const unsigned char * &result);
-TL_PUBLIC void from_string (const std::string &s, double &v);
-TL_PUBLIC void from_string (const std::string &s, int &v);
-TL_PUBLIC void from_string (const std::string &s, long &v);
-TL_PUBLIC void from_string (const std::string &s, long long &v);
-TL_PUBLIC void from_string (const std::string &s, unsigned int &v);
-TL_PUBLIC void from_string (const std::string &s, unsigned long &v);
-TL_PUBLIC void from_string (const std::string &s, unsigned long long &v);
-TL_PUBLIC void from_string (const std::string &s, bool &b);
+void from_string (const std::string &s, const char * &result);
+void from_string (const std::string &s, const unsigned char * &result);
+void from_string (const std::string &s, double &v);
+void from_string (const std::string &s, int &v);
+void from_string (const std::string &s, long &v);
+void from_string (const std::string &s, long long &v);
+void from_string (const std::string &s, unsigned int &v);
+void from_string (const std::string &s, unsigned long &v);
+void from_string (const std::string &s, unsigned long long &v);
+void from_string (const std::string &s, bool &b);
 
 inline void from_string (const std::string &s, std::string &v) { v = s; }
 
@@ -780,8 +780,8 @@ template <class T> inline void from_string (const std::string &s, T &t)
   ex.read (t);
 }
 
-TL_PUBLIC std::string sprintf (const char *fmt, const std::vector<Variant> &a, unsigned int a0 = 0);
-TL_PUBLIC std::string sprintf (const std::string &fmt, const std::vector<Variant> &a, unsigned int a0 = 0);
+std::string sprintf (const char *fmt, const std::vector<Variant> &a, unsigned int a0 = 0);
+std::string sprintf (const std::string &fmt, const std::vector<Variant> &a, unsigned int a0 = 0);
 
 inline std::string sprintf (const std::string &fmt)
 {
@@ -859,36 +859,36 @@ inline std::string sprintf (const std::string &fmt, const Variant &a1, const Var
   return sprintf(fmt, a);
 }
 
-TL_PUBLIC std::string trim (const std::string &s);
-TL_PUBLIC std::vector<std::string> split (const std::string &s, const std::string &sep);
-TL_PUBLIC std::string join (const std::vector<std::string> &strings, const std::string &sep);
+std::string trim (const std::string &s);
+std::vector<std::string> split (const std::string &s, const std::string &sep);
+std::string join (const std::vector<std::string> &strings, const std::string &sep);
 
 /**
  *  @brief Returns the lower-case character for a wchar_t
  */
-TL_PUBLIC wchar_t wdowncase (wchar_t c);
+wchar_t wdowncase (wchar_t c);
 
 /**
  *  @brief Returns the upper-case character for a wchar_t
  */
-TL_PUBLIC wchar_t wupcase (wchar_t c);
+wchar_t wupcase (wchar_t c);
 
 /**
  *  @brief Returns the lower-case UTF32 character
  */
-TL_PUBLIC uint32_t utf32_downcase (uint32_t c32);
+uint32_t utf32_downcase (uint32_t c32);
 
 /**
  *  @brief Returns the upper-case UTF32 character
  */
-TL_PUBLIC uint32_t utf32_upcase (uint32_t c32);
+uint32_t utf32_upcase (uint32_t c32);
 
 /**
  *  @brief Parses the next UTF32 character from an UTF-8 string
  *  @param cp The input character's position, will be set to the next character.
  *  @param cpe The end of the string of 0 for "no end"
  */
-TL_PUBLIC uint32_t utf32_from_utf8 (const char *&cp, const char *cpe = 0);
+uint32_t utf32_from_utf8 (const char *&cp, const char *cpe = 0);
 
 } } // namespace toolkit::logkit
 
