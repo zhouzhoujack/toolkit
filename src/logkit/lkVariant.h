@@ -10,14 +10,6 @@
 #include "lkAssert.h"
 #include "lkObject.h"
 
-namespace gsi
-{
-  class ClassBase;
-  struct NoAdaptorTag;
-  template <class T, class A> class Class;
-  template <class X> const ClassBase *cls_decl ();
-}
-
 namespace toolkit {
 namespace logkit {
 
@@ -46,7 +38,6 @@ public:
   virtual const char *name () const = 0;
   virtual bool is_const () const = 0;
   virtual void assign (void *self, const void *other) const = 0;
-  virtual const gsi::ClassBase *gsi_cls () const = 0;
   virtual const EvalClass *eval_cls () const = 0;
   virtual void *deref_proxy (Object *proxy) const = 0;
 
@@ -309,50 +300,6 @@ public:
    *  @brief Destructor
    */
   ~Variant ();
-
-  /**
-   *  @brief Utility: initialize a variant from GSI type reference
-   */
-  template <class T>
-  static Variant make_variant_ref (T *t)
-  {
-    const VariantUserClassBase *c = gsi::cls_decl<T> ()->var_cls (false);
-    lk_assert (c != 0);
-    return Variant ((void *) t, c, false);
-  }
-
-  /**
-   *  @brief Utility: initialize a variant from GSI type reference
-   */
-  template <class T>
-  static Variant make_variant_ref (const T *t)
-  {
-    const VariantUserClassBase *c = gsi::cls_decl<T> ()->var_cls (true);
-    lk_assert (c != 0);
-    return Variant ((void *) t, c, false);
-  }
-
-  /**
-   *  @brief Utility: initialize a variant from GSI type (take over ownership)
-   */
-  template <class T>
-  static Variant make_variant (T *t)
-  {
-    const VariantUserClassBase *c = gsi::cls_decl<T> ()->var_cls (false);
-    lk_assert (c != 0);
-    return Variant ((void *) t, c, true);
-  }
-
-  /**
-   *  @brief Utility: initialize a variant from GSI type (deep copy)
-   */
-  template <class T>
-  static Variant make_variant (const T &t, bool is_const = false)
-  {
-    const VariantUserClassBase *c = gsi::cls_decl <T> ()->var_cls (is_const);
-    lk_assert (c != 0);
-    return Variant ((void *) new T(t), c, true);
-  }
 
   /**
    *  @brief Assignment
@@ -736,14 +683,6 @@ public:
     } else {
       return 0;
     }
-  }
-
-  /**
-   *  @brief Gets the GSI class if the variant is a user object
-   */
-  const gsi::ClassBase *gsi_cls () const
-  {
-    return user_cls () ? user_cls ()->gsi_cls () : 0;
   }
 
   /**

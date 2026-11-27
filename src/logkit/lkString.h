@@ -7,7 +7,6 @@
 #include <string>
 #include <stdexcept>
 #include <stdint.h>
-#include <stdarg.h>
 
 #include "lkException.h"
 #include "lkVariant.h"
