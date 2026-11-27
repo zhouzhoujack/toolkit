@@ -5,8 +5,8 @@
 
 #include <string>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief Generic tr function
@@ -36,7 +36,8 @@ std::string string_to_system (const std::string &s);
  */
 void initialize_codecs ();
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

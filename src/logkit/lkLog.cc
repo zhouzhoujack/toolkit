@@ -9,8 +9,8 @@
 #include <time.h>
 #include <unistd.h>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 // ------------------------------------------------
 //  Verbosity implementation
@@ -596,5 +596,6 @@ LK_EXPORT LogTee info (new InfoChannel (0, "[info]"), true);
 LK_EXPORT LogTee log (new InfoChannel (10, "[log]"), true);
 LK_EXPORT LogTee error (new ErrorChannel (), true);
 
-} } // namespace toolkit::logkit
+} // namespace logkit
+} // namespace toolkit
 

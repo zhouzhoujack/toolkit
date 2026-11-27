@@ -30,8 +30,8 @@
 #include "lkInternational.h"
 #include "lkVariant.h"
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief The unspecific exception class
@@ -156,7 +156,8 @@ struct InternalException
   { }
 };
 
-} } // namespace toolkit::logkit
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

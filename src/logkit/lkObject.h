@@ -9,8 +9,8 @@
 #include <iterator>
 #include <vector>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 class WeakOrSharedPtr;
 
@@ -408,7 +408,8 @@ public:
   }
 };
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

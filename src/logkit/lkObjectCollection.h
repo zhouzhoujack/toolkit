@@ -8,8 +8,8 @@
 #include <iterator>
 #include <vector>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief The iterator class for the weak or shared collection
@@ -503,7 +503,8 @@ public:
   { }
 };
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

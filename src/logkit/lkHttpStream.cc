@@ -23,8 +23,8 @@
 
 #include "lkHttpStream.h"
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 // ---------------------------------------------------------------
 //  HttpErrorException implementation
@@ -52,4 +52,5 @@ HttpErrorException::format_error (const std::string &em, int ec, const std::stri
   return msg;
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit

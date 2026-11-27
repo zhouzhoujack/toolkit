@@ -35,8 +35,8 @@
 #include <vector>
 #include <memory>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 class Eval;
 class EvalTarget;
@@ -538,7 +538,8 @@ private:
   static Eval m_global;
 };
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

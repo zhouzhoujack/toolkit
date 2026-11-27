@@ -43,8 +43,8 @@
 #include "lkString.h"
 #include "lkUri.h"
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 // ---------------------------------------------------------------------------------
 //  Some exception classes
@@ -1158,5 +1158,6 @@ match_filename_to_format (const std::string &fn, const std::string &fmt)
   return false;
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit
 

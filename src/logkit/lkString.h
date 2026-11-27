@@ -12,7 +12,8 @@
 #include "lkException.h"
 #include "lkVariant.h"
 
-namespace toolkit { namespace logkit {
+namespace toolkit {
+namespace logkit {
 
 class Extractor;
 template <class T> void extractor_impl (Extractor &, T &);
@@ -890,6 +891,7 @@ uint32_t utf32_upcase (uint32_t c32);
  */
 uint32_t utf32_from_utf8 (const char *&cp, const char *cpe = 0);
 
-} } // namespace toolkit::logkit
+} // namespace logkit
+} // namespace toolkit
 
 #endif

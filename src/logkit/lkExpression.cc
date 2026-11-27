@@ -44,8 +44,8 @@
 //  - file tests: exists, locate (in path), readable, writeable 
 //  - glob: match, expand (files) - needs glob code
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 static std::locale c_locale ("C");
 
@@ -4070,5 +4070,6 @@ Eval::interpolate (const std::string &str)
   return os.str ();
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit
 

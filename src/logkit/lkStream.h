@@ -35,8 +35,8 @@
 #include <cstring>
 
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 class InflateFilter;
 class DeflateFilter;
@@ -1287,7 +1287,8 @@ private:
   OutputStream &operator= (const OutputStream &);
 };
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

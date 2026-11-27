@@ -28,8 +28,8 @@
 
 #include <unistd.h>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 std::string get_env (const std::string &name, const std::string &def_value)
 {
@@ -57,6 +57,7 @@ bool app_flag (const std::string &name)
   return ex.try_read (v) && v != 0;
 }
 
-} } // namespace toolkit::logkit
+} // namespace logkit
+} // namespace toolkit
 
 

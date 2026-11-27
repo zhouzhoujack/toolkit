@@ -32,8 +32,8 @@
 #include <dirent.h>
 #include <dlfcn.h>
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 enum { OS_Auto, OS_Windows, OS_Linux } s_mode = OS_Auto;
 
@@ -688,4 +688,5 @@ get_module_path (void *addr)
   }
 }
 
-} }
+} // namespace logkit
+} // namespace toolkit

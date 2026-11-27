@@ -8,8 +8,8 @@
 #include "lkThreads.h"
 #include "lkObjectCollection.h"
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief Set the verbosity level
@@ -389,7 +389,8 @@ public:
 };
 
 
-} } // namespace toolkit::logkit
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 

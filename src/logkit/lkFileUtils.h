@@ -26,8 +26,8 @@
 #include "lkCommon.h"
 #include "lkString.h"
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 /**
  *  @brief Returns a value indicating whether the parent path is a parent directory of the path (version with std::string)
@@ -199,6 +199,7 @@ std::string get_module_path (void *addr);
  */
 const char *line_separator ();
 
-} }
+} // namespace logkit
+} // namespace toolkit
 
 #endif

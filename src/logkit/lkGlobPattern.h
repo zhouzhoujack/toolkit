@@ -29,8 +29,8 @@
 
 #include "lkCommon.h"
 
-namespace toolkit { namespace logkit
-{
+namespace toolkit {
+namespace logkit {
 
 class GlobPatternOp;
 
@@ -177,7 +177,8 @@ private:
   GlobPatternOp *op () const;
 };
 
-} } // namespace toolkit::logkit
+} // namespace logkit
+} // namespace toolkit
 
 #endif
 
