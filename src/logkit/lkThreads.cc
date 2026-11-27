@@ -1,18 +1,26 @@
 #include "lkThreads.h"
 
-#include "lkTimer.h"
 #include "lkLog.h"
 
 #include <map>
 #define _TIMESPEC_DEFINED   //  avoids errors with pthread-win and MSVC2017
 #include <pthread.h>
 #include <errno.h>
+#include <time.h>
 
 namespace toolkit {
 namespace logkit {
 
 // -------------------------------------------------------------------------------
 //  WaitCondition implementation
+//
+//  Thin wrapper around clock_gettime, used to compute the absolute deadline for
+//  a timed wait. (This used to live in the now removed lkTimer module.)
+
+static void current_utc_time (struct timespec *ts)
+{
+  clock_gettime (CLOCK_REALTIME, ts);
+}
 
 class WaitConditionPrivate
 {

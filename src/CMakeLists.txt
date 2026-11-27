@@ -14,8 +14,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include("/home/hz/toolchain/cmake/toolchain.cmake")
 
-find_package(ZLIB REQUIRED)
-
 # CMAKE_INSTALL_{LIBDIR,INCLUDEDIR,...} must be defined before they are used in
 # the INSTALL_INTERFACE generator expression below.
 include(GNUInstallDirs)
@@ -40,9 +38,6 @@ target_include_directories(logkit_objects PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/logkit
     ${CMAKE_CURRENT_SOURCE_DIR}/logkit/atomic)
 
-# lkDeflate streams through zlib.
-target_link_libraries(logkit_objects PRIVATE ZLIB::ZLIB)
-
 # Only symbols marked LK_EXPORT (see lkCommon.h) are exported; everything else
 # -- including inline functions and vtables of internal classes -- is hidden.
 # Objects also carry hidden visibility; that is fine for the tests, since hidden
@@ -58,7 +53,6 @@ set_target_properties(logkit_objects PROPERTIES
 target_compile_options(logkit_objects PRIVATE -ffunction-sections -fdata-sections)
 
 add_library(logkit SHARED $<TARGET_OBJECTS:logkit_objects>)
-target_link_libraries(logkit PRIVATE ZLIB::ZLIB)
 target_link_options(logkit PRIVATE -Wl,--gc-sections)
 
 # A kit is exposed as toolkit::<kit>.  Only one kit exists today (logkit) and it
@@ -112,12 +106,10 @@ install(EXPORT toolkitTargets
 # #include "lkLog.h" is rewritten to "detail/lkLog.h" for the installed copy.
 #
 # Only the headers reachable from the public header (lkGLog.h -> lkLog.h -> ...)
-# are installed, under include/toolkit/detail/. Headers that are used by the
-# implementation only (lkStream.h, lkFileUtils.h,
-# lkDeflate.h, lkTimer.h, lkUri.h, lkHttpStream.h)
-# are NOT installed at all: their symbols are hidden anyway,
-# so a consumer could not use them, and leaving them out makes a direct
-# #include fail outright instead of failing later at link time.
+# are installed, under include/toolkit/detail/. Headers that the implementation
+# needs but a consumer does not (there are none right now - everything reachable
+# from lkGLog.h is installed) would NOT be installed at all: their symbols are
+# hidden anyway, so a consumer could not use them.
 #
 # KEEP THIS LIST IN SYNC: if a public header starts including a new tl*.h, add
 # it here or consumers will fail to compile. It is the include-closure of
