@@ -1,8 +1,6 @@
 #ifndef HDR_lkStream
 #define HDR_lkStream
 
-#include "lkCommon.h"
-
 #include "lkException.h"
 #include "lkString.h"
 

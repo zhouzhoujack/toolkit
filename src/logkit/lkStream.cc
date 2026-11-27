@@ -1,14 +1,13 @@
+#include "lkStream.h"
+
 #include <stddef.h>
 #include <ctype.h>
 #include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <stdio.h>
 #include <errno.h>
 #include <zlib.h>
 #include <unistd.h>
 
-#include "lkStream.h"
 #include "lkDeflate.h"
 #include "lkAssert.h"
 #include "lkFileUtils.h"

@@ -1,6 +1,5 @@
-
-
 #include "lkThreads.h"
+
 #include "lkUtils.h"
 #include "lkTimer.h"
 #include "lkLog.h"
@@ -9,14 +8,12 @@
 #define _TIMESPEC_DEFINED   //  avoids errors with pthread-win and MSVC2017
 #include <pthread.h>
 #include <errno.h>
-#include <unistd.h>
 
 namespace toolkit {
 namespace logkit {
 
 // -------------------------------------------------------------------------------
 //  WaitCondition implementation
-
 
 class WaitConditionPrivate
 {

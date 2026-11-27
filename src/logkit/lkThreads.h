@@ -1,8 +1,6 @@
 #ifndef HDR_lkThreads
 #define HDR_lkThreads
 
-#include "lkCommon.h"
-
 #include <limits>
 
 //  atomics taken from https://github.com/mbitsnbites/atomic
