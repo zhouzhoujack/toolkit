@@ -149,7 +149,7 @@ Timer::memory_size ()
 void
 SelfTimer::start_report () const
 {
-  info << m_desc << ": " << to_string (tr ("started"));
+  info << m_desc << ": " << to_string (std::string ("started"));
 }
 
 void

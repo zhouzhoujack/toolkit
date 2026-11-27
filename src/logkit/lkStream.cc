@@ -30,7 +30,7 @@ class FileWriteErrorException
 {
 public:
   FileWriteErrorException (const std::string &f, int en)
-    : Exception (to_string (tr ("Write error on file: %s (errno=%d)")), f, en)
+    : Exception (to_string (std::string ("Write error on file: %s (errno=%d)")), f, en)
   { }
 };
 
@@ -39,7 +39,7 @@ class FileReadErrorException
 {
 public:
   FileReadErrorException (const std::string &f, int en)
-    : Exception (to_string (tr ("Read error on file: %s (errno=%d)")), f, en)
+    : Exception (to_string (std::string ("Read error on file: %s (errno=%d)")), f, en)
   { }
 };
 
@@ -48,7 +48,7 @@ class ZLibWriteErrorException
 {
 public:
   ZLibWriteErrorException (const std::string &f, const char *em)
-    : Exception (to_string (tr ("Write error on file in decompression library: %s (message=%s)")), f, em)
+    : Exception (to_string (std::string ("Write error on file in decompression library: %s (message=%s)")), f, em)
   { }
 };
 
@@ -57,7 +57,7 @@ class ZLibReadErrorException
 {
 public:
   ZLibReadErrorException (const std::string &f, const char *em)
-    : Exception (to_string (tr ("Read error on file in decompression library: %s (message=%s)")), f, em)
+    : Exception (to_string (std::string ("Read error on file in decompression library: %s (message=%s)")), f, em)
   { }
 };
 
@@ -66,7 +66,7 @@ class FileOpenErrorException
 {
 public:
   FileOpenErrorException (const std::string &f, int en)
-    : Exception (to_string (tr ("Unable to open file: %s (errno=%d)")), f, en)
+    : Exception (to_string (std::string ("Unable to open file: %s (errno=%d)")), f, en)
   { }
 };
 
@@ -75,7 +75,7 @@ class FilePOpenErrorException
 {
 public:
   FilePOpenErrorException (const std::string &f, int en)
-    : Exception (to_string (tr ("Unable to get input from command through pipe: %s (errno=%d)")), f, en)
+    : Exception (to_string (std::string ("Unable to get input from command through pipe: %s (errno=%d)")), f, en)
   { }
 };
 
@@ -84,7 +84,7 @@ class FilePReadErrorException
 {
 public:
   FilePReadErrorException (const std::string &f, int en)
-    : Exception (to_string (tr ("Read error on pipe from command: %s (errno=%d)")), f, en)
+    : Exception (to_string (std::string ("Read error on pipe from command: %s (errno=%d)")), f, en)
   { }
 };
 
@@ -93,7 +93,7 @@ class FilePWriteErrorException
 {
 public:
   FilePWriteErrorException (const std::string &f, int en)
-    : Exception (to_string (tr ("Write error on pipe from command: %s (errno=%d)")), f, en)
+    : Exception (to_string (std::string ("Write error on pipe from command: %s (errno=%d)")), f, en)
   { }
 };
 
@@ -136,7 +136,7 @@ InputStream::InputStream (const std::string &abstract_path)
 
   if (ex.test (":")) {
 
-    throw Exception (to_string (tr ("Qt not enabled - resource paths are not available")));
+    throw Exception (to_string (std::string ("Qt not enabled - resource paths are not available")));
 
   } else if (ex.test ("pipe:")) {
 
@@ -150,12 +150,12 @@ InputStream::InputStream (const std::string &abstract_path)
 #if defined(HAVE_CURL)
       mp_delegate = new InputHttpStream (abstract_path);
 #else
-      throw Exception (to_string (tr ("HTTP support not enabled - HTTP/HTTPS paths are not available")));
+      throw Exception (to_string (std::string ("HTTP support not enabled - HTTP/HTTPS paths are not available")));
 #endif
     } else if (uri.scheme () == "file") {
       mp_delegate = new InputZLibFile (uri.path ());
     } else if (! uri.scheme ().empty ()) {
-      throw Exception (to_string (tr ("URI scheme not supported: ")) + uri.scheme ());
+      throw Exception (to_string (std::string ("URI scheme not supported: ")) + uri.scheme ());
     } else {
       mp_delegate = new InputZLibFile (abstract_path);
     }
@@ -664,7 +664,7 @@ OutputStream::OutputStream (const std::string &abstract_path, OutputStreamMode o
 
   Extractor ex (abstract_path.c_str ());
   if (ex.test ("http:") || ex.test ("https:")) {
-    throw Exception (to_string (tr ("Cannot write to http:, https: or pipe: URL's")));
+    throw Exception (to_string (std::string ("Cannot write to http:, https: or pipe: URL's")));
   } else if (ex.test ("pipe:")) {
     mp_delegate = new OutputPipe (ex.get ());
   } else if (ex.test ("file:")) {
@@ -838,13 +838,13 @@ OutputFileBase::OutputFileBase (const std::string &path, int keep_backups)
     m_backup_path = path + ".~backup";
     if (file_exists (m_backup_path)) {
       if (! rm_file (m_backup_path)) {
-        warn << sprintf (to_string (tr ("Could not create backup file: unable to remove existing file '%s'")), m_backup_path);
+        warn << sprintf (to_string (std::string ("Could not create backup file: unable to remove existing file '%s'")), m_backup_path);
         m_backup_path = std::string ();
       }
     }
     if (! m_backup_path.empty ()) {
       if (! rename_file (path, m_backup_path)) {
-        warn << sprintf (to_string (tr ("Could not create backup file: unable to rename original file '%s' to backup file")), path, m_backup_path);
+        warn << sprintf (to_string (std::string ("Could not create backup file: unable to rename original file '%s' to backup file")), path, m_backup_path);
         m_backup_path = std::string ();
       }
     }
@@ -858,9 +858,9 @@ OutputFileBase::~OutputFileBase ()
     if (m_has_error) {
 
       if (! rm_file (m_path)) {
-        warn << sprintf (to_string (tr ("Could not restore backup file: unable to remove file '%s'")), m_path);
+        warn << sprintf (to_string (std::string ("Could not restore backup file: unable to remove file '%s'")), m_path);
       } else if (! rename_file (m_backup_path, m_path)) {
-        warn << sprintf (to_string (tr ("Could not restore backup file: unable to rename file '%s' back to '%s'")), m_backup_path, m_path);
+        warn << sprintf (to_string (std::string ("Could not restore backup file: unable to rename file '%s' back to '%s'")), m_backup_path, m_path);
       }
 
     } else {
@@ -868,7 +868,7 @@ OutputFileBase::~OutputFileBase ()
       if (m_keep_backups == 0) {
 
         if (! rm_file (m_backup_path)) {
-          warn << sprintf (to_string (tr ("Could not remove backup file '%s'")), m_backup_path);
+          warn << sprintf (to_string (std::string ("Could not remove backup file '%s'")), m_backup_path);
         }
 
       } else {
@@ -887,11 +887,11 @@ OutputFileBase::~OutputFileBase ()
           std::string pprev = n > 1 ? (m_path + "." + to_string (n - 1)) : m_backup_path;
           if (file_exists (p)) {
             if (! rm_file (p)) {
-              warn << sprintf (to_string (tr ("Error shuffling backup files: unable to remove file '%s'")), p);
+              warn << sprintf (to_string (std::string ("Error shuffling backup files: unable to remove file '%s'")), p);
             }
           }
           if (! rename_file (pprev, p)) {
-            warn << sprintf (to_string (tr ("Error shuffling backup files: unable to rename file '%s' to '%s'")), pprev, p);
+            warn << sprintf (to_string (std::string ("Error shuffling backup files: unable to rename file '%s' to '%s'")), pprev, p);
           }
           --n;
         }
@@ -1068,7 +1068,7 @@ InputPipe::read (char *b, size_t n)
 void 
 InputPipe::reset ()
 {
-  throw Exception (to_string (tr ("'reset' is not supported on pipeline input files")));
+  throw Exception (to_string (std::string ("'reset' is not supported on pipeline input files")));
 }
 
 // ---------------------------------------------------------------

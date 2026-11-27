@@ -711,7 +711,7 @@ from_string (const std::string &s, double &v)
     ++cp;
   }
   if (! *cp) {
-    throw Exception (to_string (tr ("Got empty string where a real number was expected")));
+    throw Exception (to_string (std::string ("Got empty string where a real number was expected")));
   }
   const char *cp_end = cp;
   v = local_strtod (cp, cp_end);
@@ -732,14 +732,14 @@ convert_string_to_int (const std::string &s, T &v)
   // HACK: this should be some real string-to-int conversion
   from_string (s, x);
   if (x < std::numeric_limits <T>::min ()) {
-    throw Exception (to_string (tr ("Range underflow: ")) + s);
+    throw Exception (to_string (std::string ("Range underflow: ")) + s);
   }
   if (x > std::numeric_limits <T>::max ()) {
-    throw Exception (to_string (tr ("Range overflow: ")) + s);
+    throw Exception (to_string (std::string ("Range overflow: ")) + s);
   }
   v = T (x);
   if (x != v) {
-    throw Exception (to_string (tr ("Number cannot be represented precisely: ")) + s);
+    throw Exception (to_string (std::string ("Number cannot be represented precisely: ")) + s);
   }
 }
 
@@ -792,7 +792,7 @@ from_string (const std::string &s, bool &b)
   } else if (t == "0") {
     b = false;
   } else {
-    throw Exception (to_string (tr ("Invalid boolean value: ")) + s);
+    throw Exception (to_string (std::string ("Invalid boolean value: ")) + s);
   }
 }
 
@@ -863,7 +863,7 @@ Extractor &
 Extractor::read (unsigned int &value)
 {
   if (! try_read (value)) {
-    error (to_string (tr ("Expected an unsigned integer value")));
+    error (to_string (std::string ("Expected an unsigned integer value")));
   }
   return *this;
 }
@@ -872,7 +872,7 @@ Extractor &
 Extractor::read (unsigned char &value)
 {
   if (! try_read (value)) {
-    error (to_string (tr ("Expected an unsigned byte value")));
+    error (to_string (std::string ("Expected an unsigned byte value")));
   }
   return *this;
 }
@@ -881,7 +881,7 @@ Extractor &
 Extractor::read (unsigned long &value)
 {
   if (! try_read (value)) {
-    error (to_string (tr ("Expected an unsigned long integer value")));
+    error (to_string (std::string ("Expected an unsigned long integer value")));
   }
   return *this;
 }
@@ -890,7 +890,7 @@ Extractor &
 Extractor::read (unsigned long long &value)
 {
   if (! try_read (value)) {
-    error (to_string (tr ("Expected an unsigned long integer value")));
+    error (to_string (std::string ("Expected an unsigned long integer value")));
   }
   return *this;
 }
@@ -899,7 +899,7 @@ Extractor &
 Extractor::read (double &value)
 {
   if (! try_read (value)) {
-    error (to_string (tr ("Expected a real number")));
+    error (to_string (std::string ("Expected a real number")));
   }
   return *this;
 }
@@ -908,7 +908,7 @@ Extractor &
 Extractor::read (float &value)
 {
   if (! try_read (value)) {
-    error (to_string (tr ("Expected a real number")));
+    error (to_string (std::string ("Expected a real number")));
   }
   return *this;
 }
@@ -917,7 +917,7 @@ Extractor &
 Extractor::read (int &value)
 {
   if (! try_read (value)) {
-    error (to_string (tr ("Expected an integer value")));
+    error (to_string (std::string ("Expected an integer value")));
   }
   return *this;
 }
@@ -926,7 +926,7 @@ Extractor &
 Extractor::read (long &value)
 {
   if (! try_read (value)) {
-    error (to_string (tr ("Expected a long integer value")));
+    error (to_string (std::string ("Expected a long integer value")));
   }
   return *this;
 }
@@ -935,7 +935,7 @@ Extractor &
 Extractor::read (long long &value)
 {
   if (! try_read (value)) {
-    error (to_string (tr ("Expected a long integer value")));
+    error (to_string (std::string ("Expected a long integer value")));
   }
   return *this;
 }
@@ -944,7 +944,7 @@ Extractor &
 Extractor::read (bool &value)
 {
   if (! try_read (value)) {
-    error (to_string (tr ("Expected a boolean value ('true', 'false')")));
+    error (to_string (std::string ("Expected a boolean value ('true', 'false')")));
   }
   return *this;
 }
@@ -953,7 +953,7 @@ Extractor &
 Extractor::read (std::string &value, const char *term)
 {
   if (! try_read (value, term)) {
-    error (to_string (tr ("Expected a string")));
+    error (to_string (std::string ("Expected a string")));
   }
   return *this;
 }
@@ -962,7 +962,7 @@ Extractor &
 Extractor::read_word (std::string &value, const char *non_term)
 {
   if (! try_read_word (value, non_term)) {
-    error (to_string (tr ("Expected a word string")));
+    error (to_string (std::string ("Expected a word string")));
   }
   return *this;
 }
@@ -971,7 +971,7 @@ Extractor &
 Extractor::read_name (std::string &value, const char *non_term)
 {
   if (! try_read_name (value, non_term)) {
-    error (to_string (tr ("Expected a name string")));
+    error (to_string (std::string ("Expected a name string")));
   }
   return *this;
 }
@@ -980,7 +980,7 @@ Extractor &
 Extractor::read_word_or_quoted (std::string &value, const char *non_term)
 {
   if (! try_read_word (value, non_term) && ! try_read_quoted (value)) {
-    error (to_string (tr ("Expected a word or quoted string")));
+    error (to_string (std::string ("Expected a word or quoted string")));
   }
   return *this;
 }
@@ -989,7 +989,7 @@ Extractor &
 Extractor::read_quoted (std::string &value)
 {
   if (! try_read_quoted (value)) {
-    error (to_string (tr ("Expected a quoted string")));
+    error (to_string (std::string ("Expected a quoted string")));
   }
   return *this;
 }
@@ -1002,7 +1002,7 @@ namespace
   {
     std::string operator() () const
     {
-      return to_string (tr ("Range overflow on long long integer"));
+      return to_string (std::string ("Range overflow on long long integer"));
     }
   };
 
@@ -1010,7 +1010,7 @@ namespace
   {
     std::string operator() () const
     {
-      return to_string (tr ("Range overflow on unsigned long long integer"));
+      return to_string (std::string ("Range overflow on unsigned long long integer"));
     }
   };
 
@@ -1018,7 +1018,7 @@ namespace
   {
     std::string operator() () const
     {
-      return to_string (tr ("Range overflow on long integer"));
+      return to_string (std::string ("Range overflow on long integer"));
     }
   };
 
@@ -1026,7 +1026,7 @@ namespace
   {
     std::string operator() () const
     {
-      return to_string (tr ("Range overflow on unsigned long integer"));
+      return to_string (std::string ("Range overflow on unsigned long integer"));
     }
   };
 
@@ -1034,7 +1034,7 @@ namespace
   {
     std::string operator() () const
     {
-      return to_string (tr ("Range overflow on integer"));
+      return to_string (std::string ("Range overflow on integer"));
     }
   };
 
@@ -1042,7 +1042,7 @@ namespace
   {
     std::string operator() () const
     {
-      return to_string (tr ("Range overflow on unsigned integer"));
+      return to_string (std::string ("Range overflow on unsigned integer"));
     }
   };
 
@@ -1050,7 +1050,7 @@ namespace
   {
     std::string operator() () const
     {
-      return to_string (tr ("Range overflow on unsigned byte"));
+      return to_string (std::string ("Range overflow on unsigned byte"));
     }
   };
 }
@@ -1313,7 +1313,7 @@ Extractor &
 Extractor::expect_end ()
 {
   if (! at_end ()) {
-    error (to_string (tr ("Expected end of text")));
+    error (to_string (std::string ("Expected end of text")));
   }
   return *this;
 }
@@ -1322,7 +1322,7 @@ Extractor &
 Extractor::expect_more ()
 {
   if (at_end ()) {
-    error (to_string (tr ("Expected more text")));
+    error (to_string (std::string ("Expected more text")));
   }
   return *this;
 }
@@ -1331,7 +1331,7 @@ Extractor &
 Extractor::expect (const char *token)
 {
   if (! test (token)) {
-    error (sprintf (to_string (tr ("Expected '%s'")).c_str (), token));
+    error (sprintf (to_string (std::string ("Expected '%s'")).c_str (), token));
   }
   return *this;
 }
@@ -1395,9 +1395,9 @@ Extractor::error (const std::string &msg)
   std::string m (msg);
 
   if (at_end ()) {
-    m += to_string (tr (", but text ended"));
+    m += to_string (std::string (", but text ended"));
   } else {
-    m += to_string (tr (" here: "));
+    m += to_string (std::string (" here: "));
     const char *cp = m_cp;
     for (unsigned int i = 0; i < 10 && *cp; ++i, ++cp) {
       m += *cp;

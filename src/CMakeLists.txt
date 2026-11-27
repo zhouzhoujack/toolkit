@@ -52,8 +52,14 @@ set_target_properties(logkit_objects PROPERTIES
     CXX_VISIBILITY_PRESET hidden
     VISIBILITY_INLINES_HIDDEN ON)
 
+# Dead-code elimination: per-function/-object sections let the linker drop
+# everything in the .so that is not reachable from the exported API. The unit
+# tests still link the full objects, so nothing covered by tests is lost.
+target_compile_options(logkit_objects PRIVATE -ffunction-sections -fdata-sections)
+
 add_library(logkit SHARED $<TARGET_OBJECTS:logkit_objects>)
 target_link_libraries(logkit PRIVATE ZLIB::ZLIB)
+target_link_options(logkit PRIVATE -Wl,--gc-sections)
 
 # A kit is exposed as toolkit::<kit>.  Only one kit exists today (logkit) and it
 # produces liblogkit.so; further kits can be added to the same package as

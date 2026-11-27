@@ -1,4 +1,3 @@
-
 #include "lkException.h"
 #include "lkString.h"
 

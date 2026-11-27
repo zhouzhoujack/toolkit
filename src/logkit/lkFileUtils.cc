@@ -1,25 +1,3 @@
-
-/*
-
-  KLayout Layout Viewer
-  Copyright (C) 2006-2021 Matthias Koefferlein
-
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
-*/
-
 #include "lkFileUtils.h"
 #include "lkStream.h"
 #include "lkLog.h"
@@ -367,7 +345,7 @@ bool mkpath (const std::string &p)
     front += parts[i++];
     if (! file_exists (front)) {
       if (! mkdir (front)) {
-        error << tr ("Unable to create directory: ") << front;
+        error << std::string ("Unable to create directory: ") << front;
         return false;
       }
     }
@@ -418,13 +396,13 @@ bool rm_dir_recursive (const std::string &p)
   for (std::vector<std::string>::const_iterator e = entries.begin (); e != entries.end (); ++e) {
     std::string tc = combine_path (path, *e);
     if (! rm_file (tc)) {
-      error << tr ("Unable to remove file: ") << tc;
+      error << std::string ("Unable to remove file: ") << tc;
       return false;
     }
   }
 
   if (! rm_dir (path)) {
-    error << tr ("Unable to remove directory: ") << path;
+    error << std::string ("Unable to remove directory: ") << path;
     return false;
   }
 
@@ -442,7 +420,7 @@ cp_dir_recursive (const std::string &source, const std::string &target)
   for (std::vector<std::string>::const_iterator e = entries.begin (); e != entries.end (); ++e) {
     std::string tc = combine_path (path_to, *e);
     if (! mkpath (tc)) {
-      error << tr ("Unable to create target directory: ") << tc;
+      error << std::string ("Unable to create target directory: ") << tc;
       return false;
     }
     if (! cp_dir_recursive (combine_path (path, *e), tc)) {
@@ -465,8 +443,8 @@ cp_dir_recursive (const std::string &source, const std::string &target)
       is.copy_to (os);
 
     } catch (Exception &ex) {
-      error << tr ("Unable to copy file ") << combine_path (path_to, *e) << tr (" to ") << combine_path (path, *e)
-                << tr ("(Error ") << ex.msg () << ")";
+      error << std::string ("Unable to copy file ") << combine_path (path_to, *e) << std::string (" to ") << combine_path (path, *e)
+                << std::string ("(Error ") << ex.msg () << ")";
       return false;
     }
 
@@ -683,7 +661,7 @@ get_module_path (void *addr)
   if (dladdr (addr, &info)) {
     return absolute_file_path (to_string_from_local (info.dli_fname));
   } else {
-    warn << to_string (tr ("Unable to get path of db library (as basis for loading db_plugins)"));
+    warn << to_string (std::string ("Unable to get path of db library (as basis for loading db_plugins)"));
     return std::string ();
   }
 }

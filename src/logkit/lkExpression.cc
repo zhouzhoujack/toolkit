@@ -30,7 +30,7 @@ static std::locale c_locale ("C");
 //  Implementation of EvalError
 
 EvalError::EvalError (const std::string &what, const ExpressionParserContext &context)
-  : Exception (what + to_string (tr (" at ")) + context.where ())
+  : Exception (what + to_string (std::string (" at ")) + context.where ())
 {
   // .. nothing yet ..
 }
@@ -39,7 +39,7 @@ EvalError::EvalError (const std::string &what, const ExpressionParserContext &co
 //  Implementation of NoMethodError
 
 NoMethodError::NoMethodError (const std::string &cls_name, const std::string &method, const ExpressionParserContext &context)
-  : EvalError (sprintf (to_string (tr ("'%s' is not a valid method name for objects of class '%s'")), method, cls_name), context)
+  : EvalError (sprintf (to_string (std::string ("'%s' is not a valid method name for objects of class '%s'")), method, cls_name), context)
 { 
   // .. nothing yet ..
 }
@@ -76,7 +76,7 @@ ExpressionParserContext::where () const
     size_t len = strlen (text);
 
     if (pos >= len) {
-      return to_string (tr ("end of text"));
+      return to_string (std::string ("end of text"));
     } else {
 
       int line = 1;
@@ -93,9 +93,9 @@ ExpressionParserContext::where () const
       std::ostringstream os;
 
       if (line == 1) {
-        os << to_string (tr ("position")) << " " << pos;
+        os << to_string (std::string ("position")) << " " << pos;
       } else {
-        os << to_string (tr ("line")) << " " << line << ", " << to_string (tr ("position")) << " " << col;
+        os << to_string (std::string ("line")) << " " << line << ", " << to_string (std::string ("position")) << " " << col;
       }
 
       os << " (";
@@ -115,7 +115,7 @@ ExpressionParserContext::where () const
     }
 
   } else {
-    return std::string (to_string (tr ("[unspecified location]")));
+    return std::string (to_string (std::string ("[unspecified location]")));
   }
 }
 
@@ -129,14 +129,14 @@ static double to_double (const ExpressionParserContext &context, const Variant &
   } else if (v.is_list ()) {
     return v.get_list ().size ();
   } else {
-    throw EvalError (to_string (tr ("Double precision floating point value expected")), context);
+    throw EvalError (to_string (std::string ("Double precision floating point value expected")), context);
   }
 }
 
 static double to_double (const ExpressionParserContext &context, const std::vector <Variant> &v)
 {
   if (v.size () != 1) {
-    throw EvalError (to_string (tr ("Function expects a single numeric argument")), context);
+    throw EvalError (to_string (std::string ("Function expects a single numeric argument")), context);
   }
 
   return to_double (context, v [0]);
@@ -149,7 +149,7 @@ static long to_long (const ExpressionParserContext &context, const Variant &v)
   } else if (v.is_list ()) {
     return long (v.get_list ().size ());
   } else {
-    throw EvalError (to_string (tr ("Integer value expected")), context);
+    throw EvalError (to_string (std::string ("Integer value expected")), context);
   }
 }
 
@@ -160,7 +160,7 @@ static unsigned long to_ulong (const ExpressionParserContext &context, const Var
   } else if (v.is_list ()) {
     return (unsigned long) (v.get_list ().size ());
   } else {
-    throw EvalError (to_string (tr ("Unsigned integer value expected")), context);
+    throw EvalError (to_string (std::string ("Unsigned integer value expected")), context);
   }
 }
 
@@ -171,7 +171,7 @@ static long long to_longlong (const ExpressionParserContext &context, const Vari
   } else if (v.is_list ()) {
     return long (v.get_list ().size ());
   } else {
-    throw EvalError (to_string (tr ("Integer value expected")), context);
+    throw EvalError (to_string (std::string ("Integer value expected")), context);
   }
 }
 
@@ -182,7 +182,7 @@ static unsigned long long to_ulonglong (const ExpressionParserContext &context, 
   } else if (v.is_list ()) {
     return (unsigned long long) (v.get_list ().size ());
   } else {
-    throw EvalError (to_string (tr ("Unsigned integer value expected")), context);
+    throw EvalError (to_string (std::string ("Unsigned integer value expected")), context);
   }
 }
 
@@ -288,7 +288,7 @@ public:
     if (method == "push") {
 
       if (args.size () != 1) {
-        throw EvalError (to_string (tr ("'push' method expects one argument")), context);
+        throw EvalError (to_string (std::string ("'push' method expects one argument")), context);
       }
 
       object.push (args [0]);
@@ -297,13 +297,13 @@ public:
     } else if (method == "size") {
       
       if (args.size () != 0) {
-        throw EvalError (to_string (tr ("'size' method does not accept an argument")), context);
+        throw EvalError (to_string (std::string ("'size' method does not accept an argument")), context);
       }
 
       out = object.size ();
     
     } else {
-      throw EvalError (to_string (tr ("Unknown method")) + " '" + method + "' for list", context);
+      throw EvalError (to_string (std::string ("Unknown method")) + " '" + method + "' for list", context);
     }
 
   }
@@ -325,7 +325,7 @@ public:
     if (method == "insert") {
 
       if (args.size () != 2) {
-        throw EvalError (to_string (tr ("'insert' method expects two arguments")), context);
+        throw EvalError (to_string (std::string ("'insert' method expects two arguments")), context);
       }
 
       object.insert (args [0], args [1]);
@@ -334,7 +334,7 @@ public:
     } else if (method == "size") {
       
       if (args.size () != 0) {
-        throw EvalError (to_string (tr ("'size' method does not accept an argument")), context);
+        throw EvalError (to_string (std::string ("'size' method does not accept an argument")), context);
       }
 
       out = object.array_size ();
@@ -342,7 +342,7 @@ public:
     } else if (method == "keys") {
 
       if (args.size () != 0) {
-        throw EvalError (to_string (tr ("'keys' method does not accept an argument")), context);
+        throw EvalError (to_string (std::string ("'keys' method does not accept an argument")), context);
       }
 
       out.set_list (object.array_size ());
@@ -353,7 +353,7 @@ public:
     } else if (method == "values") {
 
       if (args.size () != 0) {
-        throw EvalError (to_string (tr ("'keys' method does not accept an argument")), context);
+        throw EvalError (to_string (std::string ("'keys' method does not accept an argument")), context);
       }
 
       out.set_list (object.array_size ());
@@ -362,7 +362,7 @@ public:
       }
 
     } else {
-      throw EvalError (to_string (tr ("Unknown method")) + " '" + method + "' for array", context);
+      throw EvalError (to_string (std::string ("Unknown method")) + " '" + method + "' for array", context);
     }
 
   }
@@ -447,7 +447,7 @@ public:
     m_c[1]->execute (a);
 
     if (! v.lvalue ()) {
-      throw EvalError (to_string (tr ("Assignment needs a lvalue")), m_context);
+      throw EvalError (to_string (std::string ("Assignment needs a lvalue")), m_context);
     }
     a.swap (*v.lvalue ());
   }
@@ -488,7 +488,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -538,7 +538,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -588,7 +588,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -638,7 +638,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -688,7 +688,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -738,7 +738,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -788,7 +788,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -885,7 +885,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1056,7 +1056,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1112,7 +1112,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1168,7 +1168,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1230,7 +1230,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1290,7 +1290,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1303,7 +1303,7 @@ public:
 
       long x = to_long (m_context, *b);
       if (x < 0) {
-        throw EvalError (to_string (tr ("Numeric argument of '*' operator with string must be positive")), m_context);
+        throw EvalError (to_string (std::string ("Numeric argument of '*' operator with string must be positive")), m_context);
       }
 
       std::string s;
@@ -1318,7 +1318,7 @@ public:
 
       long x = to_long (m_context, *v);
       if (x < 0) {
-        throw EvalError (to_string (tr ("Numeric argument of '*' operator with string must be positive")), m_context);
+        throw EvalError (to_string (std::string ("Numeric argument of '*' operator with string must be positive")), m_context);
       }
 
       std::string s;
@@ -1380,7 +1380,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1392,37 +1392,37 @@ public:
     } else if (v->is_double () || b->is_double ()) {
       double d = to_double (m_context, *b);
       if (d == 0) {
-        throw EvalError (to_string (tr ("Division by zero")), m_context);
+        throw EvalError (to_string (std::string ("Division by zero")), m_context);
       }
       v.set (Variant (to_double (m_context, *v) / d));
     } else if (v->is_ulonglong () || b->is_ulonglong ()) {
       unsigned long long d = to_ulonglong (m_context, *b);
       if (d == 0) {
-        throw EvalError (to_string (tr ("Division by zero")), m_context);
+        throw EvalError (to_string (std::string ("Division by zero")), m_context);
       }
       v.set (Variant (to_ulonglong (m_context, *v) / d));
     } else if (v->is_longlong () || b->is_longlong ()) {
       long long d = to_longlong (m_context, *b);
       if (d == 0) {
-        throw EvalError (to_string (tr ("Division by zero")), m_context);
+        throw EvalError (to_string (std::string ("Division by zero")), m_context);
       }
       v.set (Variant (to_longlong (m_context, *v) / d));
     } else if (v->is_ulong () || b->is_ulong ()) {
       unsigned long d = to_ulong (m_context, *b);
       if (d == 0) {
-        throw EvalError (to_string (tr ("Division by zero")), m_context);
+        throw EvalError (to_string (std::string ("Division by zero")), m_context);
       }
       v.set (Variant (to_ulong (m_context, *v) / d));
     } else if (v->is_long () || b->is_long ()) {
       long d = to_long (m_context, *b);
       if (d == 0) {
-        throw EvalError (to_string (tr ("Division by zero")), m_context);
+        throw EvalError (to_string (std::string ("Division by zero")), m_context);
       }
       v.set (Variant (to_long (m_context, *v) / d));
     } else {
       double d = to_double (m_context, *b);
       if (d == 0) {
-        throw EvalError (to_string (tr ("Division by zero")), m_context);
+        throw EvalError (to_string (std::string ("Division by zero")), m_context);
       }
       v.set (Variant (to_double (m_context, *v) / d));
     }
@@ -1464,7 +1464,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1476,25 +1476,25 @@ public:
     } else if (v->is_ulonglong () || b->is_ulonglong ()) {
       unsigned long long d = to_ulonglong (m_context, *b);
       if (d == 0) {
-        throw EvalError (to_string (tr ("Modulo by zero")), m_context);
+        throw EvalError (to_string (std::string ("Modulo by zero")), m_context);
       }
       v.set (Variant (to_ulonglong (m_context, *v) % d));
     } else if (v->is_longlong () || b->is_longlong ()) {
       long long d = to_longlong (m_context, *b);
       if (d == 0) {
-        throw EvalError (to_string (tr ("Modulo by zero")), m_context);
+        throw EvalError (to_string (std::string ("Modulo by zero")), m_context);
       }
       v.set (Variant (to_longlong (m_context, *v) % d));
     } else if (v->is_ulong () || b->is_ulong ()) {
       unsigned long d = to_ulong (m_context, *b);
       if (d == 0) {
-        throw EvalError (to_string (tr ("Modulo by zero")), m_context);
+        throw EvalError (to_string (std::string ("Modulo by zero")), m_context);
       }
       v.set (Variant (to_ulong (m_context, *v) % d));
     } else {
       long d = to_long (m_context, *b);
       if (d == 0) {
-        throw EvalError (to_string (tr ("Modulo by zero")), m_context);
+        throw EvalError (to_string (std::string ("Modulo by zero")), m_context);
       }
       v.set (Variant (to_long (m_context, *v) % d));
     }
@@ -1536,7 +1536,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1592,7 +1592,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1648,7 +1648,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1704,7 +1704,7 @@ public:
 
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1716,7 +1716,7 @@ public:
     } else if (v->is_list ()) {
 
       if (! e->can_convert_to_ulong ()) {
-        throw EvalError (to_string (tr ("Invalid index for [] operator")), m_context);
+        throw EvalError (to_string (std::string ("Invalid index for [] operator")), m_context);
       }
       unsigned long i = e->to_ulong ();
       if (i >= (unsigned long) v->size ()) {
@@ -1746,7 +1746,7 @@ public:
       }
 
     } else {
-      throw EvalError (to_string (tr ("[] operator expects a list or an array")), m_context);
+      throw EvalError (to_string (std::string ("[] operator expects a list or an array")), m_context);
     }
   }
 };
@@ -1781,11 +1781,11 @@ public:
 
     if (v->is_user ()) {
 
-      throw EvalError (to_string (tr ("Unary minus not implemented for objects")), m_context);
+      throw EvalError (to_string (std::string ("Unary minus not implemented for objects")), m_context);
       /*
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -1838,11 +1838,11 @@ public:
 
     if (v->is_user ()) {
 
-      throw EvalError (to_string (tr ("Unary tilde not implemented for objects")), m_context);
+      throw EvalError (to_string (std::string ("Unary tilde not implemented for objects")), m_context);
       /*
       const EvalClass *c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (to_string (tr ("Not a valid object for a method call (not an object)")), m_context);
+        throw EvalError (to_string (std::string ("Not a valid object for a method call (not an object)")), m_context);
       }
 
       Variant o;
@@ -2018,10 +2018,10 @@ public:
     } else if (v->is_user ()) {
       c = v->user_cls () ? v->user_cls ()->eval_cls () : 0;
       if (! c) {
-        throw EvalError (sprintf (to_string (tr ("Not a valid object for a method call (not an object) - value is %s")), v->to_parsable_string ()), m_context);
+        throw EvalError (sprintf (to_string (std::string ("Not a valid object for a method call (not an object) - value is %s")), v->to_parsable_string ()), m_context);
       }
     } else {
-      throw EvalError (sprintf (to_string (tr ("Not a valid object for a method call (wrong type) - value is %s")), v->to_parsable_string ()), m_context);
+      throw EvalError (sprintf (to_string (std::string ("Not a valid object for a method call (wrong type) - value is %s")), v->to_parsable_string ()), m_context);
     }
 
     Variant o;
@@ -2335,7 +2335,7 @@ static void
 abs_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &v)
 {
   if (v.size () != 1) {
-    throw EvalError (to_string (tr ("'abs' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'abs' function expects exactly one argument")), context);
   }
 
   if (v[0].is_long ()) {
@@ -2415,7 +2415,7 @@ static void
 pow_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 2) {
-    throw EvalError (to_string (tr ("'pow' function expects exactly two arguments")), context);
+    throw EvalError (to_string (std::string ("'pow' function expects exactly two arguments")), context);
   }
 
   out = pow (to_double (context, vv [0]), to_double (context, vv [1]));
@@ -2425,7 +2425,7 @@ static void
 atan2_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 2) {
-    throw EvalError (to_string (tr ("'atan2' function expects exactly two arguments")), context);
+    throw EvalError (to_string (std::string ("'atan2' function expects exactly two arguments")), context);
   }
 
   out = atan2 (to_double (context, vv [0]), to_double (context, vv [1]));
@@ -2435,7 +2435,7 @@ static void
 to_f_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'to_f' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'to_f' function expects exactly one argument")), context);
   }
 
   out = vv [0].to_double ();
@@ -2445,7 +2445,7 @@ static void
 to_s_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'to_s' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'to_s' function expects exactly one argument")), context);
   }
 
   out = vv [0].to_string ();
@@ -2455,7 +2455,7 @@ static void
 to_i_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'to_i' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'to_i' function expects exactly one argument")), context);
   }
 
   out = vv [0].to_long ();
@@ -2465,7 +2465,7 @@ static void
 to_ui_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'to_ui' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'to_ui' function expects exactly one argument")), context);
   }
 
   out = vv [0].to_ulong ();
@@ -2475,7 +2475,7 @@ static void
 to_l_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'to_l' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'to_l' function expects exactly one argument")), context);
   }
 
   out = vv [0].to_longlong ();
@@ -2485,7 +2485,7 @@ static void
 to_ul_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'to_ul' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'to_ul' function expects exactly one argument")), context);
   }
 
   out = vv [0].to_ulonglong ();
@@ -2495,7 +2495,7 @@ static void
 is_string_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'is_string' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'is_string' function expects exactly one argument")), context);
   }
 
   out = vv[0].is_a_string ();
@@ -2505,7 +2505,7 @@ static void
 is_numeric_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'is_numeric' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'is_numeric' function expects exactly one argument")), context);
   }
 
   out = vv [0].can_convert_to_double ();
@@ -2515,7 +2515,7 @@ static void
 is_array_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'is_array' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'is_array' function expects exactly one argument")), context);
   }
 
   out = vv [0].is_list ();
@@ -2525,7 +2525,7 @@ static void
 is_nil_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'is_nil' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'is_nil' function expects exactly one argument")), context);
   }
 
   out = vv [0].is_nil ();
@@ -2535,7 +2535,7 @@ static void
 gsub_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 3) {
-    throw EvalError (to_string (tr ("'gsub' function expects exactly three arguments")), context);
+    throw EvalError (to_string (std::string ("'gsub' function expects exactly three arguments")), context);
   }
 
   std::string s (vv [0].to_string ());
@@ -2560,7 +2560,7 @@ static void
 sub_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 3) {
-    throw EvalError (to_string (tr ("'sub' function expects exactly three arguments")), context);
+    throw EvalError (to_string (std::string ("'sub' function expects exactly three arguments")), context);
   }
 
   std::string s (vv [0].to_string ());
@@ -2588,7 +2588,7 @@ static void
 find_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 2) {
-    throw EvalError (to_string (tr ("'find' function expects exactly two arguments")), context);
+    throw EvalError (to_string (std::string ("'find' function expects exactly two arguments")), context);
   }
 
   std::string s (vv [0].to_string ());
@@ -2606,7 +2606,7 @@ static void
 rfind_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 2) {
-    throw EvalError (to_string (tr ("'rfind' function expects exactly two arguments")), context);
+    throw EvalError (to_string (std::string ("'rfind' function expects exactly two arguments")), context);
   }
 
   std::string s (vv [0].to_string ());
@@ -2624,7 +2624,7 @@ static void
 len_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'len' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'len' function expects exactly one argument")), context);
   }
 
   if (vv [0].is_list ()) {
@@ -2638,7 +2638,7 @@ static void
 substr_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 3 && vv.size () != 2) {
-    throw EvalError (to_string (tr ("'substr' function expects two or three arguments")), context);
+    throw EvalError (to_string (std::string ("'substr' function expects two or three arguments")), context);
   }
 
   std::string s (vv [0].to_string ());
@@ -2672,11 +2672,11 @@ static void
 join_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 2) {
-    throw EvalError (to_string (tr ("'join' function expects exactly two arguments")), context);
+    throw EvalError (to_string (std::string ("'join' function expects exactly two arguments")), context);
   }
 
   if (! vv[0].is_list ()) {
-    throw EvalError (to_string (tr ("First argument of 'join' function must be a list")), context);
+    throw EvalError (to_string (std::string ("First argument of 'join' function must be a list")), context);
   }
 
   std::ostringstream r;
@@ -2700,11 +2700,11 @@ static void
 item_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 2) {
-    throw EvalError (to_string (tr ("'item' function expects exactly two arguments")), context);
+    throw EvalError (to_string (std::string ("'item' function expects exactly two arguments")), context);
   }
 
   if (! vv[0].is_list ()) {
-    throw EvalError (to_string (tr ("First argument of 'item' function must be a list")), context);
+    throw EvalError (to_string (std::string ("First argument of 'item' function must be a list")), context);
   }
 
   long index = to_long (context, vv [1]);
@@ -2719,7 +2719,7 @@ static void
 split_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 2) {
-    throw EvalError (to_string (tr ("'split' function expects exactly two arguments")), context);
+    throw EvalError (to_string (std::string ("'split' function expects exactly two arguments")), context);
   }
 
   out = Variant::empty_list ();
@@ -2738,7 +2738,7 @@ static void
 true_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 0) {
-    throw EvalError (to_string (tr ("'true' function must not have arguments")), context);
+    throw EvalError (to_string (std::string ("'true' function must not have arguments")), context);
   }
 
   out = true;
@@ -2748,7 +2748,7 @@ static void
 false_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 0) {
-    throw EvalError (to_string (tr ("'false' function must not have arguments")), context);
+    throw EvalError (to_string (std::string ("'false' function must not have arguments")), context);
   }
 
   out = false;
@@ -2758,7 +2758,7 @@ static void
 nil_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 0) {
-    throw EvalError (to_string (tr ("'nil' function must not have arguments")), context);
+    throw EvalError (to_string (std::string ("'nil' function must not have arguments")), context);
   }
 
   out = Variant ();
@@ -2768,7 +2768,7 @@ static void
 env_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'env' function expects exactly two arguments")), context);
+    throw EvalError (to_string (std::string ("'env' function expects exactly two arguments")), context);
   }
 
   const char *vn = vv [0].to_string ();
@@ -2783,7 +2783,7 @@ static void
 error_f (const ExpressionParserContext &context, Variant &, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'error' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'error' function expects exactly one argument")), context);
   }
 
   throw Exception (vv [0].to_string ());
@@ -2793,7 +2793,7 @@ static void
 absolute_file_path_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'absolute_file_path' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'absolute_file_path' function expects exactly one argument")), context);
   }
 
   out = absolute_file_path (vv [0].to_string ());
@@ -2803,7 +2803,7 @@ static void
 absolute_path_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'absolute_path' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'absolute_path' function expects exactly one argument")), context);
   }
 
   out = absolute_path (vv [0].to_string ());
@@ -2813,7 +2813,7 @@ static void
 path_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'path' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'path' function expects exactly one argument")), context);
   }
 
   out = dirname (vv [0].to_string ());
@@ -2823,7 +2823,7 @@ static void
 basename_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'basename' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'basename' function expects exactly one argument")), context);
   }
 
   out = basename (vv [0].to_string ());
@@ -2833,7 +2833,7 @@ static void
 extension_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'extension' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'extension' function expects exactly one argument")), context);
   }
 
   out = extension (vv [0].to_string ());
@@ -2843,7 +2843,7 @@ static void
 file_exists_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'file_exists' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'file_exists' function expects exactly one argument")), context);
   }
 
   out = file_exists (vv [0].to_string ());
@@ -2853,7 +2853,7 @@ static void
 is_dir_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 1) {
-    throw EvalError (to_string (tr ("'is_dir' function expects exactly one argument")), context);
+    throw EvalError (to_string (std::string ("'is_dir' function expects exactly one argument")), context);
   }
 
   out = is_dir (vv [0].to_string ());
@@ -2863,7 +2863,7 @@ static void
 combine_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () != 2) {
-    throw EvalError (to_string (tr ("'combine' function expects two arguments")), context);
+    throw EvalError (to_string (std::string ("'combine' function expects two arguments")), context);
   }
 
   out = combine_path (vv [0].to_string (), vv [1].to_string ());
@@ -2873,7 +2873,7 @@ static void
 sprintf_f (const ExpressionParserContext &context, Variant &out, const std::vector <Variant> &vv)
 {
   if (vv.size () < 1) {
-    throw EvalError (to_string (tr ("'sprintf' function expects at least one argument")), context);
+    throw EvalError (to_string (std::string ("'sprintf' function expects at least one argument")), context);
   }
 
   out = sprintf (vv[0].to_string (), vv, 1);
@@ -2883,7 +2883,7 @@ static void
 printf_f (const ExpressionParserContext &context, Variant &, const std::vector <Variant> &vv)
 {
   if (vv.size () < 1) {
-    throw EvalError (to_string (tr ("'printf' function expects at least one argument")), context);
+    throw EvalError (to_string (std::string ("'printf' function expects at least one argument")), context);
   }
 
   std::cout << sprintf (vv[0].to_string (), vv, 1);
@@ -3209,7 +3209,7 @@ Eval::eval_if (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> &n)
     std::unique_ptr<ExpressionNode> b, c;
     eval_if (ex, b);
     if (! ex.test (":")) {
-      throw EvalError (to_string (tr ("Expected ':'")), ex);
+      throw EvalError (to_string (std::string ("Expected ':'")), ex);
     }
     eval_if (ex, c);
     n.reset (new IfExpressionNode (ex1, n.release (), b.release (), c.release ()));
@@ -3525,7 +3525,7 @@ Eval::eval_suffix (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
             if (ex.test (")")) {
               break;
             } else if (! ex.test (",")) {
-              throw EvalError (to_string (tr ("Expected closing bracket ')'")), ex);
+              throw EvalError (to_string (std::string ("Expected closing bracket ')'")), ex);
             }
 
           } while (true);
@@ -3594,7 +3594,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
 
     eval_top (ex, n);
     if (! ex.test (")")) {
-      throw EvalError (to_string (tr ("Expected closing bracket ')'")), ex);
+      throw EvalError (to_string (std::string ("Expected closing bracket ')'")), ex);
     }
 
   } else if (ex.test ("[")) {
@@ -3612,7 +3612,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
         if (ex.test ("]")) {
           break;
         } else if (! ex.test (",")) {
-          throw EvalError (to_string (tr ("Expected closing bracket ']'")), ex);
+          throw EvalError (to_string (std::string ("Expected closing bracket ']'")), ex);
         }
 
       } while (true);
@@ -3633,7 +3633,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
       } else if (ctx_handler ()) {
         n.reset (new ContextEvaluationNode (ex1, ctx_handler (), n.release (), true /*double bracket*/));
       } else {
-        throw EvalError (to_string (tr ("<<..>> expression not available in this context")), ex1);
+        throw EvalError (to_string (std::string ("<<..>> expression not available in this context")), ex1);
       }
 
     } else {
@@ -3646,7 +3646,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
       } else if (ctx_handler ()) {
         n.reset (new ConstantExpressionNode (ex1, ctx_handler ()->eval_double_bracket (s)));
       } else {
-        throw EvalError (to_string (tr ("<<..>> expression not available in this context")), ex1);
+        throw EvalError (to_string (std::string ("<<..>> expression not available in this context")), ex1);
       }
 
     }
@@ -3665,7 +3665,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
       } else if (ctx_handler ()) {
         n.reset (new ContextEvaluationNode (ex1, ctx_handler (), n.release (), false /*single bracket*/));
       } else {
-        throw EvalError (to_string (tr ("<<..>> expression not available in this context")), ex1);
+        throw EvalError (to_string (std::string ("<<..>> expression not available in this context")), ex1);
       }
 
     } else {
@@ -3678,7 +3678,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
       } else if (ctx_handler ()) {
         n.reset (new ConstantExpressionNode (ex1, ctx_handler ()->eval_bracket (s)));
       } else {
-        throw EvalError (to_string (tr ("<..> expression not available in this context")), ex1);
+        throw EvalError (to_string (std::string ("<..> expression not available in this context")), ex1);
       }
 
     }
@@ -3714,7 +3714,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
         if (ex.test ("}")) {
           break;
         } else if (! ex.test (",")) {
-          throw EvalError (to_string (tr ("Expected closing bracket ']'")), ex);
+          throw EvalError (to_string (std::string ("Expected closing bracket ']'")), ex);
         }
 
       } while (true);
@@ -3727,7 +3727,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
     while (! ex.at_end ()) {
       if (isdigit (*ex) || (tolower (*ex) <= 'f' && tolower (*ex) >= 'a')) {
         if ((x * 16) / 16 != x) {
-          throw EvalError (to_string (tr ("Hexadecimal number overflow")), ex1);
+          throw EvalError (to_string (std::string ("Hexadecimal number overflow")), ex1);
         }
         x *= 16;
         if (isdigit (*ex)) {
@@ -3805,7 +3805,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
     } else {
 
       if (dbu_units && ! ctx_handler ()) {
-        throw EvalError (to_string (tr ("Length or area value with unit requires a layout context")), ex1);
+        throw EvalError (to_string (std::string ("Length or area value with unit requires a layout context")), ex1);
       }
 
       if (dbu_units) {
@@ -3813,7 +3813,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
         double gg = g;
         g = floor (0.5 + g);
         if (fabs (g) < 1e12 && fabs (g - gg) > 1e-3) {
-          throw EvalError (to_string (tr ("Value is not a multiple of the database unit")), ex1);
+          throw EvalError (to_string (std::string ("Value is not a multiple of the database unit")), ex1);
         }
       }
 
@@ -3867,7 +3867,7 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
             if (ex.test (")")) {
               break;
             } else if (! ex.test (",")) {
-              throw EvalError (to_string (tr ("Expected closing bracket ')'")), ex);
+              throw EvalError (to_string (std::string ("Expected closing bracket ')'")), ex);
             }
 
           } while (true);
@@ -3883,11 +3883,11 @@ Eval::eval_atomic (ExpressionParserContext &ex, std::unique_ptr<ExpressionNode> 
     } else if (m_sloppy) {
       n.reset (new ConstantExpressionNode (ex1, Variant ()));
     } else {
-      throw EvalError (to_string (tr ("Unknown variable or function")) + " '" + t + "'", ex1);
+      throw EvalError (to_string (std::string ("Unknown variable or function")) + " '" + t + "'", ex1);
     }
 
   } else {
-    throw EvalError (to_string (tr ("Expected constant, function or bracket expression")), ex1);
+    throw EvalError (to_string (std::string ("Expected constant, function or bracket expression")), ex1);
   }
 }
 

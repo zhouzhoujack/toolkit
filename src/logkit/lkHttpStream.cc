@@ -9,12 +9,12 @@ namespace logkit {
 std::string
 HttpErrorException::format_error (const std::string &em, int ec, const std::string &url, const std::string &body)
 {
-  std::string msg = sprintf (to_string (tr ("Error %d: %s, fetching %s")), ec, em, url);
+  std::string msg = sprintf (to_string (std::string ("Error %d: %s, fetching %s")), ec, em, url);
 
   if (! body.empty ()) {
 
     msg += "\n\n";
-    msg += to_string (tr ("Reply body:"));
+    msg += to_string (std::string ("Reply body:"));
     msg += "\n";
 
     if (body.size () > 1000) {

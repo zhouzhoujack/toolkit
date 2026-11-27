@@ -249,7 +249,7 @@ InflateFilter::get (size_t n)
 
   while ((m_b_insert + sizeof (m_buffer) - m_b_read) % sizeof (m_buffer) < n) {
     if (! process ()) {
-      throw Exception (to_string (tr ("Unexpected end of file (DEFLATE implementation)")));
+      throw Exception (to_string (std::string ("Unexpected end of file (DEFLATE implementation)")));
     }
   }
 
@@ -472,7 +472,7 @@ InflateFilter::process ()
         }
 
       } else {
-        throw Exception (to_string (tr ("Invalid compression type: %d")), t);
+        throw Exception (to_string (std::string ("Invalid compression type: %d")), t);
       }
 
     } else {

@@ -47,7 +47,7 @@ public:
     m_mask = 0;
     const char *c = mp_input->get (1, true /*bypass_deflate*/);
     if (c == 0) {
-      throw Exception (to_string (tr ("Unexpected end of file (DEFLATE implementation)")));
+      throw Exception (to_string (std::string ("Unexpected end of file (DEFLATE implementation)")));
     }
     return *c;
   }
