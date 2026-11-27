@@ -1,7 +1,7 @@
 # Standalone demo project.
 #
 # It consumes the *installed* toolkit package exactly like a third-party user
-# would (find_package + <toolkit/tlLog.h> + toolkit::logkit) instead of linking
+# would (find_package + <toolkit/tlGLog.h> + toolkit::logkit) instead of linking
 # the in-tree target, so it doubles as a smoke test of the exported tree.
 #
 #   ./compile.sh                        # builds + installs into ./toolkit_0_1_0
@@ -24,7 +24,7 @@ add_executable(logkit_log_demo
 )
 
 # toolkit::logkit carries <prefix>/include in its interface, so
-# "#include <toolkit/tlLog.h>" resolves without any extra -I.
+# "#include <toolkit/tlGLog.h>" resolves without any extra -I.
 target_link_libraries(logkit_log_demo PRIVATE 
     toolkit::logkit
 )

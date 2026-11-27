@@ -51,9 +51,10 @@ target_include_directories(logkit PUBLIC
 # Install / export
 #
 # Ships
-#   <prefix>/include/toolkit/*.h      (consumer: #include <toolkit/tlLog.h>)
+#   <prefix>/include/toolkit/tlGLog.h       (public: #include <toolkit/tlGLog.h>)
+#   <prefix>/include/toolkit/detail/*.h     (implementation details, tlLog.h included)
 #   <prefix>/lib/liblogkit.so
-#   <prefix>/lib/cmake/toolkit/       (find_package(toolkit) CONFIG-mode package)
+#   <prefix>/lib/cmake/toolkit/             (find_package(toolkit) CONFIG-mode package)
 #
 #   find_package(toolkit REQUIRED)                  # or COMPONENTS logkit
 #   target_link_libraries(app PRIVATE toolkit::logkit)
@@ -73,45 +74,26 @@ install(EXPORT toolkitTargets
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/toolkit")
 
 # ---------------------------------------------------------------------------
-# Public headers: tlLog.h + tlGLog.h
+# Headers: tlGLog.h is the public header, everything else goes to detail/
 #
-# tlLog.h is installed as the public header, but it is not self-contained: it includes
-# tlCommon.h, tlString.h, tlThreads.h and tlObjectCollection.h, which pull in
-# ~10 more.  Those are implementation details, so they are installed under
-# include/toolkit/detail/ instead of next to the public header, and tlLog.h's
+# tlGLog.h is installed to include/toolkit/ as the public header. Its own
+# #include "tlLog.h" points at a header that now lives under detail/, so the
 # quoted includes are rewritten to "detail/xxx.h" for the installed copy.
 #
-# tlGLog.h defines the LOGI/LOGW/LOGE/LOGF macros and is public as well -- it only
-# does #include "tlLog.h", so it is installed verbatim.
+# All other headers (tlLog.h and its dependencies) are installed under
+# include/toolkit/detail/, where they stay siblings and their plain
+# #include "tlXxx.h" lines keep working verbatim (no rewriting needed).
+# atomic/ stays a subdirectory because tlThreads.h says
+# #include "atomic/spinlock.h".
 #
-# The relative includes among the detail headers keep working as-is (they are
-# all siblings under detail/, and atomic/ stays a subdirectory because
-# tlThreads.h says #include "atomic/spinlock.h").
+# Consumers write #include <toolkit/tlGLog.h>.
 # ---------------------------------------------------------------------------
 file(GLOB logkit_headers CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/logkit/*.h")
 
 set(logkit_detail_headers ${logkit_headers})
 list(REMOVE_ITEM logkit_detail_headers
-    "${CMAKE_CURRENT_SOURCE_DIR}/logkit/tlLog.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/logkit/tlGLog.h")
-
-# Regenerate the installed copy whenever the source header changes.
-set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/logkit/tlLog.h")
-
-file(READ "${CMAKE_CURRENT_SOURCE_DIR}/logkit/tlLog.h" logkit_tllog_h)
-string(REGEX REPLACE
-    "#include \"(tl[A-Za-z0-9_]*\\.h)\""
-    "#include \"detail/\\1\""
-    logkit_tllog_h "${logkit_tllog_h}")
-file(WRITE "${PROJECT_BINARY_DIR}/include/toolkit/tlLog.h" "${logkit_tllog_h}")
-
-install(FILES "${PROJECT_BINARY_DIR}/include/toolkit/tlLog.h"
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/toolkit")
-
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/logkit/tlGLog.h"
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/toolkit")
 
 install(FILES ${logkit_detail_headers}
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/toolkit/detail")
@@ -119,6 +101,20 @@ install(FILES ${logkit_detail_headers}
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/logkit/atomic"
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/toolkit/detail"
     FILES_MATCHING PATTERN "*.h")
+
+# Regenerate the installed copy whenever the source header changes.
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/logkit/tlGLog.h")
+
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/logkit/tlGLog.h" logkit_tlglog_h)
+string(REGEX REPLACE
+    "#include \"(tl[A-Za-z0-9_]*\\.h)\""
+    "#include \"detail/\\1\""
+    logkit_tlglog_h "${logkit_tlglog_h}")
+file(WRITE "${PROJECT_BINARY_DIR}/include/toolkit/tlGLog.h" "${logkit_tlglog_h}")
+
+install(FILES "${PROJECT_BINARY_DIR}/include/toolkit/tlGLog.h"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/toolkit")
 
 # Generated under <build>/cmake/toolkit/ on purpose: if the install prefix is ever
 # the build dir, a config at the prefix root would shadow the installed one
