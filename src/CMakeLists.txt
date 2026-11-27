@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(toolkit)
+# Library version, driven by ./compile.sh --ver (passed in as -DTOOLKIT_VERSION).
+# Falls back to 0.1.0 when configured directly with a plain `cmake -S src -B build`.
+if(NOT DEFINED TOOLKIT_VERSION OR TOOLKIT_VERSION STREQUAL "")
+    set(TOOLKIT_VERSION "0.1.0")
+endif()
+
+project(toolkit VERSION ${TOOLKIT_VERSION})
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -18,7 +24,7 @@ include(CMakePackageConfigHelpers)
 # ---------------------------------------------------------------------------
 # Library target
 # ---------------------------------------------------------------------------
-# All tl* sources in logkit/ (CONFIGURE_DEPENDS re-globs when files are added).
+# All lk* sources in logkit/ (CONFIGURE_DEPENDS re-globs when files are added).
 file(GLOB logkit_sources CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/logkit/*.cc")
 
@@ -54,7 +60,14 @@ target_link_libraries(logkit PRIVATE ZLIB::ZLIB)
 # toolkit::<name> without renaming anything for consumers.
 add_library(toolkit::logkit ALIAS logkit)
 
-# No VERSION/SOVERSION: the artifact stays a plain liblogkit.so.
+# ELF version / SONAME derived from the package version (./compile.sh --ver X.Y.Z):
+#   liblogkit.so.<X.Y.Z>  (real file)
+#   liblogkit.so.<X>      (SONAME symlink; SOVERSION = major)
+#   liblogkit.so          (dev symlink)
+# Same major version => same SONAME => ABI-compatible drop-in upgrades.
+set_target_properties(logkit PROPERTIES
+    VERSION   ${PROJECT_VERSION}
+    SOVERSION ${PROJECT_VERSION_MAJOR})
 
 target_include_directories(logkit PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/logkit>
@@ -66,7 +79,7 @@ target_include_directories(logkit PUBLIC
 # Ships
 #   <prefix>/include/toolkit/lkGLog.h       (public: #include <toolkit/lkGLog.h>)
 #   <prefix>/include/toolkit/detail/*.h     (implementation details, lkLog.h included)
-#   <prefix>/lib/liblogkit.so
+#   <prefix>/lib/liblogkit.so -> .so.<major> -> .so.<version>
 #   <prefix>/lib/cmake/toolkit/             (find_package(toolkit) CONFIG-mode package)
 #
 #   find_package(toolkit REQUIRED)                  # or COMPONENTS logkit

@@ -89,7 +89,7 @@ if [[ "${PREFIX}" != /* ]]; then
     PREFIX="$(pwd)/${PREFIX}"
 fi
 
-cmake -S src -B "${BUILD_DIR}" -DCMAKE_BUILD_TYPE="${BUILD_TYPE}"
+cmake -S src -B "${BUILD_DIR}" -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" -DTOOLKIT_VERSION="${VERSION}"
 cmake --build "${BUILD_DIR}" -j3
 
 echo "Built:     $(ls "${BUILD_DIR}"/liblogkit.so* 2>/dev/null | tr '\n' ' ')"
