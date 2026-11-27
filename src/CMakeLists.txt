@@ -38,7 +38,7 @@ target_include_directories(logkit_objects PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/logkit
     ${CMAKE_CURRENT_SOURCE_DIR}/logkit/atomic)
 
-# Only symbols marked LK_EXPORT (see lkCommon.h) are exported; everything else
+# Only symbols marked LK_EXPORT (see lkHelper.h) are exported; everything else
 # -- including inline functions and vtables of internal classes -- is hidden.
 # Objects also carry hidden visibility; that is fine for the tests, since hidden
 # symbols are still usable within the same link unit.
@@ -116,7 +116,6 @@ install(EXPORT toolkitTargets
 # lkGLog.h over the "lkXxx.h" quoted includes.
 # ---------------------------------------------------------------------------
 set(_logkit_installed_header_names
-    lkCommon.h
     lkException.h
     lkHelper.h
     lkLog.h
