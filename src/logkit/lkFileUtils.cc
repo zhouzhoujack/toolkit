@@ -1,9 +1,9 @@
 #include "lkFileUtils.h"
+
 #include "lkStream.h"
 #include "lkLog.h"
 
 #include <cctype>
-
 #include <sys/stat.h>
 #include <unistd.h>
 #include <dirent.h>

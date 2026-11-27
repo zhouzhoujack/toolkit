@@ -1,13 +1,9 @@
-
-
-
 #ifndef HDR_lkGlobPattern
 #define HDR_lkGlobPattern
 
 #include <string>
 #include <vector>
 
-#include "lkCommon.h"
 
 namespace toolkit {
 namespace logkit {

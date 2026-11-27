@@ -159,8 +159,6 @@ public:
       if (r->first.get ()) {
         try {
           r->second->call (_JOIN(r->first.get (), _CALLARGS));
-        } catch (Exception &ex) {
-          handle_event_exception (ex);
         } catch (std::exception &ex) {
           handle_event_exception (ex);
         } catch (...) {

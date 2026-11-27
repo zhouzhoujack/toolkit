@@ -1,7 +1,6 @@
 #ifndef HDR_lkFileUtils
 #define HDR_lkFileUtils
 
-#include "lkCommon.h"
 #include "lkString.h"
 
 namespace toolkit {
