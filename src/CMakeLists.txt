@@ -25,7 +25,7 @@ file(GLOB logkit_sources CONFIGURE_DEPENDS
 # Compile the sources once into an OBJECT library so both the shared library and
 # the unit tests reuse the same objects. The tests exercise the internal API, so
 # they link these objects (hidden symbols stay usable within the test exe) instead
-# of the shared lib, which only exports the TL_EXPORT public API.
+# of the shared lib, which only exports the LK_EXPORT public API.
 add_library(logkit_objects OBJECT ${logkit_sources})
 
 # atomic/spinlock.h includes "atomic.h" (same directory), so that directory
@@ -34,10 +34,10 @@ target_include_directories(logkit_objects PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/logkit
     ${CMAKE_CURRENT_SOURCE_DIR}/logkit/atomic)
 
-# tlDeflate streams through zlib.
+# lkDeflate streams through zlib.
 target_link_libraries(logkit_objects PRIVATE ZLIB::ZLIB)
 
-# Only symbols marked TL_EXPORT (see tlCommon.h) are exported; everything else
+# Only symbols marked LK_EXPORT (see lkCommon.h) are exported; everything else
 # -- including inline functions and vtables of internal classes -- is hidden.
 # Objects also carry hidden visibility; that is fine for the tests, since hidden
 # symbols are still usable within the same link unit.
@@ -64,8 +64,8 @@ target_include_directories(logkit PUBLIC
 # Install / export
 #
 # Ships
-#   <prefix>/include/toolkit/tlGLog.h       (public: #include <toolkit/tlGLog.h>)
-#   <prefix>/include/toolkit/detail/*.h     (implementation details, tlLog.h included)
+#   <prefix>/include/toolkit/lkGLog.h       (public: #include <toolkit/lkGLog.h>)
+#   <prefix>/include/toolkit/detail/*.h     (implementation details, lkLog.h included)
 #   <prefix>/lib/liblogkit.so
 #   <prefix>/lib/cmake/toolkit/             (find_package(toolkit) CONFIG-mode package)
 #
@@ -89,34 +89,34 @@ install(EXPORT toolkitTargets
 # ---------------------------------------------------------------------------
 # Headers
 #
-# tlGLog.h is the single public header (installed to include/toolkit/). Its own
-# #include "tlLog.h" is rewritten to "detail/tlLog.h" for the installed copy.
+# lkGLog.h is the single public header (installed to include/toolkit/). Its own
+# #include "lkLog.h" is rewritten to "detail/lkLog.h" for the installed copy.
 #
-# Only the headers reachable from the public header (tlGLog.h -> tlLog.h -> ...)
+# Only the headers reachable from the public header (lkGLog.h -> lkLog.h -> ...)
 # are installed, under include/toolkit/detail/. Headers that are used by the
-# implementation only (tlExpression.h, tlStream.h, tlGlobPattern.h, tlFileUtils.h,
-# tlDeflate.h, tlEnv.h, tlTimer.h, tlUri.h, tlHttpStream.h, tlUtils.h,
+# implementation only (lkExpression.h, lkStream.h, lkGlobPattern.h, lkFileUtils.h,
+# lkDeflate.h, lkEnv.h, lkTimer.h, lkUri.h, lkHttpStream.h, lkUtils.h,
 # utf_casefolding.h) are NOT installed at all: their symbols are hidden anyway,
 # so a consumer could not use them, and leaving them out makes a direct
 # #include fail outright instead of failing later at link time.
 #
 # KEEP THIS LIST IN SYNC: if a public header starts including a new tl*.h, add
 # it here or consumers will fail to compile. It is the include-closure of
-# tlGLog.h over the "tlXxx.h" quoted includes.
+# lkGLog.h over the "lkXxx.h" quoted includes.
 # ---------------------------------------------------------------------------
 set(_logkit_installed_header_names
-    tlAssert.h
-    tlCommon.h
-    tlEvents.h
-    tlEventsVar.h
-    tlException.h
-    tlInternational.h
-    tlLog.h
-    tlObject.h
-    tlObjectCollection.h
-    tlString.h
-    tlThreads.h
-    tlVariant.h)
+    lkAssert.h
+    lkCommon.h
+    lkEvents.h
+    lkEventsVar.h
+    lkException.h
+    lkInternational.h
+    lkLog.h
+    lkObject.h
+    lkObjectCollection.h
+    lkString.h
+    lkThreads.h
+    lkVariant.h)
 
 set(logkit_detail_headers)
 foreach(_hdr IN LISTS _logkit_installed_header_names)
@@ -136,16 +136,16 @@ install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/logkit/atomic"
 
 # Regenerate the installed copy whenever the source header changes.
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/logkit/tlGLog.h")
+    "${CMAKE_CURRENT_SOURCE_DIR}/logkit/lkGLog.h")
 
-file(READ "${CMAKE_CURRENT_SOURCE_DIR}/logkit/tlGLog.h" logkit_tlglog_h)
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/logkit/lkGLog.h" logkit_tlglog_h)
 string(REGEX REPLACE
-    "#include \"(tl[A-Za-z0-9_]*\\.h)\""
+    "#include \"(lk[A-Za-z0-9_]*\\.h)\""
     "#include \"detail/\\1\""
     logkit_tlglog_h "${logkit_tlglog_h}")
-file(WRITE "${PROJECT_BINARY_DIR}/include/toolkit/tlGLog.h" "${logkit_tlglog_h}")
+file(WRITE "${PROJECT_BINARY_DIR}/include/toolkit/lkGLog.h" "${logkit_tlglog_h}")
 
-install(FILES "${PROJECT_BINARY_DIR}/include/toolkit/tlGLog.h"
+install(FILES "${PROJECT_BINARY_DIR}/include/toolkit/lkGLog.h"
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/toolkit")
 
 # Generated under <build>/cmake/toolkit/ on purpose: if the install prefix is ever
