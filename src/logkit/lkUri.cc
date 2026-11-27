@@ -1,9 +1,8 @@
-
 #include "lkUri.h"
+
 #include "lkString.h"
 
 #include <cstring>
-#include <cstdio>
 
 namespace toolkit {
 namespace logkit {

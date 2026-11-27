@@ -1,6 +1,5 @@
-
-
 #include "lkTimer.h"
+
 #include "lkLog.h"
 #include "lkString.h"
 
