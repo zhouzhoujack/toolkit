@@ -1,31 +1,5 @@
-
-/*
-
-  KLayout Layout Viewer
-  Copyright (C) 2006-2021 Matthias Koefferlein
-
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
-*/
-
-
-
 #ifndef HDR_lkException
 #define HDR_lkException
-
-#include "lkCommon.h"
 
 #include "lkInternational.h"
 #include "lkVariant.h"
@@ -131,29 +105,6 @@ public:
 private:
   std::string m_msg;
   void init (const std::string &fmt, const std::vector<Variant> &a);
-};
-
-/**
- *  @brief A "neutral" exception thrown to terminate some operation
- *  This exception is not shown.
- */
-struct CancelException
-  : public Exception
-{
-  CancelException ()
-    : Exception (to_string (tr ("Operation cancelled")))
-  { }
-};
-
-/**
- *  @brief A special "internal" exception class used by lk_assert
- */
-struct InternalException
-  : public Exception
-{
-  InternalException (const char *file, int line, const char *cond)
-    : Exception (to_string (tr ("Internal error: %s:%d %s was not true")).c_str (), file, line, cond)
-  { }
 };
 
 } // namespace logkit
