@@ -1,5 +1,4 @@
 #include "lkExpression.h"
-#include "lkInternational.h"
 #include "lkString.h"
 #include "lkGlobPattern.h"
 #include "lkFileUtils.h"

@@ -1,5 +1,4 @@
 #include "lkVariant.h"
-#include "lkInternational.h"
 #include "lkString.h"
 
 #include <string.h>

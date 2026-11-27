@@ -9,7 +9,6 @@
 #include <stdexcept>
 #include <typeinfo>
 
-#include "lkInternational.h"
 #include "lkAssert.h"
 #include "lkObject.h"
 

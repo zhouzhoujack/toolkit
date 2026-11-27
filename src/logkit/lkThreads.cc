@@ -4,7 +4,6 @@
 #include "lkUtils.h"
 #include "lkTimer.h"
 #include "lkLog.h"
-#include "lkInternational.h"
 
 #include <map>
 #define _TIMESPEC_DEFINED   //  avoids errors with pthread-win and MSVC2017

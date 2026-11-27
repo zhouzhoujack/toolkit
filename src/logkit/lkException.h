@@ -1,7 +1,6 @@
 #ifndef HDR_lkException
 #define HDR_lkException
 
-#include "lkInternational.h"
 #include "lkVariant.h"
 
 namespace toolkit {

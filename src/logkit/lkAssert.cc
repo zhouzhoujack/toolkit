@@ -2,7 +2,6 @@
 
 #include "lkException.h"
 #include "lkGLog.h"
-#include "lkInternational.h"
 
 namespace toolkit {
 namespace logkit {
