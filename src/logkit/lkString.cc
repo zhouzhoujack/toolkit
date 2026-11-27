@@ -18,27 +18,25 @@ static std::locale c_locale ("C");
 
 // -------------------------------------------------------------------------
 //  lower and upper case for wchar_t and uint32_t
-
-#include "utf_casefolding.h"
+//
+//  Only ASCII is folded. This is sufficient for the one remaining purpose
+//  (case-insensitive user class name lookup, see lkVariant.cc); the Unicode
+//  code page tables that used to live in utf_casefolding.h are gone.
 
 wchar_t wdowncase (wchar_t c)
 {
-  int ch = c >> 8;
-  if (ch >= 0 && ch < int (sizeof (uc_tab) / sizeof (uc_tab[0])) && uc_tab[ch]) {
-    return uc_tab[ch][c & 0xff];
-  } else {
-    return c;
+  if (c >= L'A' && c <= L'Z') {
+    return c + (L'a' - L'A');
   }
+  return c;
 }
 
 wchar_t wupcase (wchar_t c)
 {
-  int ch = c >> 8;
-  if (ch >= 0 && ch < int (sizeof (lc_tab) / sizeof (lc_tab[0])) && lc_tab[ch]) {
-    return lc_tab[ch][c & 0xff];
-  } else {
-    return c;
+  if (c >= L'a' && c <= L'z') {
+    return c - (L'a' - L'A');
   }
+  return c;
 }
 
 uint32_t utf32_downcase (uint32_t c32)
