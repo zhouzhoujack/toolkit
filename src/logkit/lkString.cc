@@ -6,11 +6,10 @@
 #include <cstring>
 #include <cctype>
 #include <limits>
+#include <memory>
 #include <vector>
 #include <sstream>
 #include <algorithm>
-
-#include "lkExpression.h"
 
 namespace toolkit {
 namespace logkit {
@@ -728,8 +727,7 @@ from_string (const std::string &s, double &v)
     ++cp_end;
   }
   if (*cp_end) {
-    //  try using an expression
-    v = Eval ().parse (s).execute ().to_double ();
+    throw Exception (to_string (std::string ("Not a number: ")) + s);
   }
 }
 
