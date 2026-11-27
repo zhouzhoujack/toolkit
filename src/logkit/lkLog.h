@@ -2,7 +2,7 @@
 #ifndef HDR_lkLog
 #define HDR_lkLog
 
-#include "lkCommon.h"
+#include "lkHelper.h"
 
 #include "lkString.h"
 #include "lkThreads.h"

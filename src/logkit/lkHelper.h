@@ -3,7 +3,17 @@
 
 #include <string>
 
-#include "lkCommon.h"
+/**
+ *  @brief Marks a symbol as part of the public ABI
+ *
+ *  The library is compiled with -fvisibility=hidden, so only symbols carrying
+ *  this attribute are exported (and thus usable by consumers).
+ */
+#if defined(__GNUC__) || defined(__clang__)
+#  define LK_EXPORT __attribute__((visibility("default")))
+#else
+#  define LK_EXPORT
+#endif
 
 namespace toolkit {
 namespace logkit {

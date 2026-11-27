@@ -1,7 +1,7 @@
 #ifndef HDR_lkObject
 #define HDR_lkObject
 
-#include "lkCommon.h"
+#include "lkHelper.h"
 
 #include "lkHelper.h"
 #include "lkThreads.h"
