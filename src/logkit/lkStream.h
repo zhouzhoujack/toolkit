@@ -9,7 +9,6 @@
 #include <cstdio>
 #include <cstring>
 
-
 namespace toolkit {
 namespace logkit {
 
