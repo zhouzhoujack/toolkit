@@ -6,9 +6,6 @@
 #include "lkAssert.h"
 #include "lkThreads.h"
 
-#include <iterator>
-#include <vector>
-
 namespace toolkit {
 namespace logkit {
 

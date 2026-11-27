@@ -1,8 +1,6 @@
 #ifndef _HDR_lkVariant
 #define _HDR_lkVariant
 
-#include "lkCommon.h"
-
 #include <string>
 #include <vector>
 #include <map>
@@ -1470,10 +1468,6 @@ template<> inline bool Variant::can_convert_to<std::string> () const          { 
 template<> inline bool Variant::can_convert_to<std::vector<char> > () const   { return true; }
 template<> inline bool Variant::can_convert_to<const char *> () const         { return true; }
 
-/**
- *  @brief Initialize the class table (must be called once)
- */
-void initialize_variant_class_table ();
 
 } // namespace logkit
 } // namespace toolkit

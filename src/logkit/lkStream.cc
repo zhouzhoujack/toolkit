@@ -9,7 +9,6 @@
 #include <unistd.h>
 
 #include "lkStream.h"
-#include "lkHttpStream.h"
 #include "lkDeflate.h"
 #include "lkAssert.h"
 #include "lkFileUtils.h"
@@ -147,11 +146,7 @@ InputStream::InputStream (const std::string &abstract_path)
     URI uri (abstract_path);
 
     if (uri.scheme () == "http" || uri.scheme () == "https") {
-#if defined(HAVE_CURL)
-      mp_delegate = new InputHttpStream (abstract_path);
-#else
       throw Exception (to_string (std::string ("HTTP support not enabled - HTTP/HTTPS paths are not available")));
-#endif
     } else if (uri.scheme () == "file") {
       mp_delegate = new InputZLibFile (uri.path ());
     } else if (! uri.scheme ().empty ()) {
@@ -172,13 +167,7 @@ InputStream::InputStream (const std::string &abstract_path)
 std::string InputStream::absolute_path (const std::string &abstract_path)
 {
   //  TODO: align this implementation with InputStream ctor
-
   Extractor ex (abstract_path.c_str ());
-#if defined(HAVE_CURL)
-  if (ex.test ("http:") || ex.test ("https:")) {
-    return abstract_path;
-  } else
-#endif
   if (ex.test ("pipe:")) {
     return abstract_path;
   } else if (ex.test ("file:")) {
